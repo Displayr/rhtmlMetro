@@ -30,15 +30,34 @@ class Box {
 
   setConfig (config) {
     this.config = config
-    console.log(this.config)
   }
 
   draw () {
-    d3.select(this.rootElement)
-      .append("svg")
-      .attr("class", "rootsvg")
-      .attr("width", this.config.width)
-      .attr("height", this.config.height)
+    let box = d3.select(this.rootElement)
+      .append("div")
+      .attr("class", "box_el")
+      .style("width", this.config.width + "px")
+      .style("height", this.config.height + "px")
+      .style("border-style", this.config.border_style)
+      .style("border-width", this.config.border_width + "px")
+      .style("border-color", this.config.border_color + "px")
+
+    if (this.config.text) {
+      box.append("text")
+        .text(this.config.text)
+        .attr("x", 0)
+        .attr("y", 0)
+        .attr("dy", 0)
+        .style("font-family", this.config.font_family)
+        .style("font-size", this.config.font_size + "px")
+        .style("text-decoration", () => {
+          let dec = "none"
+          if (this.config.font_strikethrough) 
+            return "line-through"
+          if (this.config.font_underline)
+            return "underline"
+        })
+    }
   }
 
   _clearRootElement () {
