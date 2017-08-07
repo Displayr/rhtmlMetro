@@ -44,10 +44,10 @@ class Box {
 
     if (this.config.text) {
       box.append("text")
-        .text(this.config.text)
         .attr("x", 0)
         .attr("y", 0)
         .attr("dy", 0)
+        .text(this.config.text)
         .style("font-family", this.config.font_family)
         .style("font-size", this.config.font_size + "px")
         .style("text-decoration", () => {
