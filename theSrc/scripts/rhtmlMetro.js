@@ -27,6 +27,15 @@ HTMLWidgets.widget({
           case 'donut':
 
         }
+        if (!incomingConfig.width) {
+          incomingConfig.width = width
+        }
+        if (!incomingConfig.height) {
+          incomingConfig.height = height
+        }
+        instance.setConfig(incomingConfig)
+        instance.setUserState(userState)
+        instance.draw()
         // let config = null
         // try {
         //   if (_.isString(incomingConfig)) {

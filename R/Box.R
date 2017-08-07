@@ -40,7 +40,7 @@ Box <- function(
         border_width = border_width,
         border_color = border_color,
         border_style = border_style,
-        class = "Box",
+        class = "box",
         width = width,
         height = height
     )
