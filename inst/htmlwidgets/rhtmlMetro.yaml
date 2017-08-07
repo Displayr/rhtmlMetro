@@ -1,15 +1,14 @@
 dependencies:
-- name: d3
-  version: 3.5.3
-  src: htmlwidgets/lib/d3
-  script: ./d3.min.js
 
-- name: style
-  version: 1.0.0
-  src: htmlwidgets/lib/style
-  stylesheet: main.css
+ - name: style
+   version: 1.0.0
+   src: htmlwidgets/lib/style
+   stylesheet:
+     main.css
 
-- name: d3-tip
-  version: 0.6.6
-  src: htmlwidgets/lib/d3-tip
-  script: index.js
+# TEMPLATE ! change the name of the map file
+ - name: Maps
+   version: 1.0.0
+   src: htmlwidgets
+   script:
+     - rhtmlTemplate.js.map

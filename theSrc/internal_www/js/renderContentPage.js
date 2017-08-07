@@ -3,13 +3,25 @@ import $ from 'jquery'
 import _ from 'lodash'
 /* global window */
 
-// TEMPLATE : you will need to import your widget here
-import WidgetClass from '../../scripts/Template'
+import Box from '../../scripts/Box'
 
 const defaultConfig = {
-  width: 200,
-  height: 200,
-  border: false
+  width: 600,
+  height: 400,
+  text: '',
+  horizontal_align: "left",
+  vertical_align: "top",
+  wrap_text: false,
+  background_color: "Transparent",
+  font_family: "sans-serif",
+  font_size: 11,
+  font_bold: false,
+  font_italic: false,
+  font_underline: false,
+  font_strikethrough: false,
+  border_width: 0,
+  border_color: "Transparent",
+  border_style: "Solid",
 }
 
 let exampleCounter = 0
@@ -32,6 +44,7 @@ const retrieveConfig = function (configName) {
     $.ajax(`/data/${configName}/config.json`).done(resolve).error(reject)
   })
 }
+
 
 const relativeResizersHtmlSnippet = `
 <div class="relative-resize-container">
@@ -154,8 +167,8 @@ const addExampleTo = function () {
     element.append(widgetDiv)
 
     // TEMPLATE : you will need to instantiate your widget here
-    widgetInstance = new WidgetClass(widgetDiv, dataAttributes.width, dataAttributes.height, stateChangedCallback)
-    widgetInstance.setConfig(config)
+    widgetInstance = new Box(widgetDiv, dataAttributes.width, dataAttributes.height, stateChangedCallback)
+    widgetInstance.setConfig(dataAttributes)
     widgetInstance.setUserState(state)
     widgetInstance.draw()
   }).catch((error) => {
