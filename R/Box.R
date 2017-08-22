@@ -10,10 +10,11 @@ Box <- function(
     text = NULL,
     horizontal_align = "left",
     vertical_align = "top",
-    wrap_text = FALSE,
+    wrap_text = TRUE,
     background_color = "Transparent",
     font_family = "sans-serif",
     font_size = 11,
+    font_color = "black",
     font_bold = FALSE,
     font_italic = FALSE,
     font_underline = FALSE,
@@ -21,6 +22,7 @@ Box <- function(
     border_width = 0,
     border_color = "Transparent",
     border_style = "Solid",
+    as_html = FALSE,
     width = NULL,
     height = NULL
 ) {
@@ -33,6 +35,7 @@ Box <- function(
         background_color = background_color,
         font_family = font_family,
         font_size = font_size,
+        font_color = font_color,
         font_bold = font_bold,
         font_italic = font_italic,
         font_underline = font_underline,
@@ -40,6 +43,7 @@ Box <- function(
         border_width = border_width,
         border_color = border_color,
         border_style = border_style,
+        as_html = as_html,
         class = "box",
         width = width,
         height = height

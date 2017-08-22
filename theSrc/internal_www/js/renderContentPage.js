@@ -8,20 +8,22 @@ import Box from '../../scripts/Box'
 const defaultConfig = {
   width: 600,
   height: 400,
-  text: 'some example text',
-  horizontal_align: "left",
-  vertical_align: "top",
-  wrap_text: false,
-  background_color: "Transparent",
-  font_family: "sans-serif",
+  text: 'some example text long long long long long x<br>y text long long  long long  long long  long long  long long  long long  long long  long long  long long  long long ',
+  horizontal_align: "center",
+  vertical_align: "bottom",
+  wrap_text: true,
+  background_color: "#eeeeee",
+  font_family: "Impact",
   font_size: 20,
-  font_bold: false,
-  font_italic: false,
+  font_color: 'blue',
+  font_bold: true,
+  font_italic: true,
   font_underline: false,
   font_strikethrough: true,
   border_width: 1,
   border_color: "black",
   border_style: "Solid",
+  as_html: false
 }
 
 let exampleCounter = 0
