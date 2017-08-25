@@ -8,3 +8,5 @@ browser
 .idea
 .keys
 .tmp/snapshots.feature
+.DS_Store
+
