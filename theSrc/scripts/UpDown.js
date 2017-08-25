@@ -3,7 +3,7 @@
 import _ from 'lodash'
 import * as d3 from 'd3'
 
-class Box {
+class UpDown {
   static initClass () {
     this.widgetIndex = 0
     this.widgetName = 'Box'
@@ -85,10 +85,8 @@ class Box {
   }
 
   _clearRootElement () {
-    d3.select(this.rootElement)
-      .selectAll('div')
-      .remove()
+
   }
 }
 
-module.exports = Box
+module.exports = UpDown

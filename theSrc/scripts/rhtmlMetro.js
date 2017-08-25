@@ -2,6 +2,7 @@
 
 import _ from 'lodash'
 import Box from './Box'
+import UpDown from './UpDown'
 import DisplayError from './DisplayError'
 
 HTMLWidgets.widget({
@@ -22,8 +23,8 @@ HTMLWidgets.widget({
         switch (incomingConfig.class) {
           case 'box':
             instance = new Box(element, width, height, stateChangedCallback)
-          case 'text':
-
+          case 'updown':
+            instance = new UpDown(element, width, height, stateChangedCallback)
           case 'donut':
 
         }
@@ -33,6 +34,7 @@ HTMLWidgets.widget({
         if (!incomingConfig.height) {
           incomingConfig.height = height
         }
+        instance._clearRootElement()
         instance.setConfig(incomingConfig)
         instance.setUserState(userState)
         instance.draw()
