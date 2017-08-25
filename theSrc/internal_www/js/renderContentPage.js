@@ -169,10 +169,12 @@ const addExampleTo = function () {
     element.append(widgetDiv)
 
     // TEMPLATE : you will need to instantiate your widget here
-    widgetInstance = new Box(widgetDiv, dataAttributes.width, dataAttributes.height, stateChangedCallback)
+    widgetInstance = new Box(widgetDiv, stateChangedCallback)
     widgetInstance.setConfig(dataAttributes)
-    widgetInstance.setUserState(state)
-    widgetInstance.draw()
+    .setWidth(dataAttributes.width)
+    .setHeight(dataAttributes.height)
+    .draw()
+
   }).catch((error) => {
     console.log(error)
   })

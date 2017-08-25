@@ -9,33 +9,43 @@ class Box {
     this.widgetName = 'Box'
   }
 
-  constructor (el, width, height, stateChangedCallback) {
+  constructor (el, stateChangedCallback) {
     this.id = `${this.widgetName}-${this.widgetIndex++}`
     this.rootElement = _.has(el, 'length') ? el[0] : el
-    this.initialWidth = width
-    this.initialHeight = height
     this.state = {}
     this.stateChangedCallback = stateChangedCallback
   }
 
-  resize (width, height) {
-
+  resize () {
+    
   }
 
   setUserState (userState = {}) {
-
+    return this
   }
 
   setConfig (config) {
     this.config = config
+    return this
+  }
+
+  setWidth (width) {
+    this.width = this.config.width ? this.config.width : width
+    return this
+  }
+
+  setHeight (height) {
+    this.height = this.config.height ? this.config.height : height
+    return this
   }
 
   draw () {
+    this._clearRootElement()
     let box = d3.select(this.rootElement)
       .append('div')
       .attr('class', 'MetroBox')
-      .style('width', this.config.width + 'px')
-      .style('height', this.config.height + 'px')
+      .style('width', this.width + 'px')
+      .style('height', this.height + 'px')
       .append('div')
       .style('display', 'table')
       .style('width', '100%')

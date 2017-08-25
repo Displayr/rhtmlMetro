@@ -12,32 +12,26 @@ HTMLWidgets.widget({
   factory (element, width, height, stateChangedCallback) {
 
     //const instance = new Box(element, width, height, stateChangedCallback)
+    let instance;
     return {
-      resize (newWidth, newHeight) {
-        //instance.resize(newWidth, newHeight)
-      },
-
       renderValue (incomingConfig, userState) {
 
-        let instance;
         switch (incomingConfig.class) {
           case 'box':
-            instance = new Box(element, width, height, stateChangedCallback)
+            instance = new Box(element, stateChangedCallback)
+            break;
           case 'updown':
-            instance = new UpDown(element, width, height, stateChangedCallback)
+            instance = new UpDown(element, stateChangedCallback)
+            break;
           case 'donut':
+            break;
+        }
 
-        }
-        if (!incomingConfig.width) {
-          incomingConfig.width = width
-        }
-        if (!incomingConfig.height) {
-          incomingConfig.height = height
-        }
-        instance._clearRootElement()
         instance.setConfig(incomingConfig)
-        instance.setUserState(userState)
-        instance.draw()
+        .setWidth(width)
+        .setHeight(height)
+        .setUserState(userState)
+        .draw()
         // let config = null
         // try {
         //   if (_.isString(incomingConfig)) {
@@ -68,6 +62,10 @@ HTMLWidgets.widget({
         //   errorHandler.draw()
         //   throw new Error(err)
         // }
+      },
+
+      resize (newWidth, newHeight) {
+        instance.setWidth(newWidth).setHeight(newHeight).draw()
       }
     }
   }
