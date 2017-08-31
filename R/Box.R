@@ -73,8 +73,8 @@ Box <- function(
         width = width,
         height = height,
         sizingPolicy = htmlwidgets::sizingPolicy(
-            browser.padding = 5,
-            viewer.padding = 5,
+            browser.padding = 0,
+            viewer.padding = 0,
             browser.fill = TRUE,
             viewer.fill = TRUE
         ),
