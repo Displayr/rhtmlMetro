@@ -47,6 +47,7 @@ class Box {
       .style('width', this.width + 'px')
       .style('height', this.height + 'px')
       .append('div')
+      .attr('class', 'MetroBoxInner')
       .style('display', 'table')
       .style('width', this.width + 'px')
       .style('height', this.height + 'px')
