@@ -17,7 +17,7 @@ class Box {
   }
 
   resize () {
-    
+
   }
 
   setUserState (userState = {}) {
@@ -53,7 +53,7 @@ class Box {
       .style('background-color', this.config.background_color)
       .style('border-style', this.config.border_style)
       .style('border-width', this.config.border_width + 'px')
-      .style('border-color', this.config.border_color + 'px')
+      .style('border-color', this.config.border_color)
       .style('text-align', this.config.horizontal_align)
       .style('white-space', () => {
         if (this.config.wrap_text) {
