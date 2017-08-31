@@ -3,21 +3,21 @@
 #' Creates an html Div container box with multiple features.
 #' 
 #' @param text character. Adding text to the box.
-#' @param horizontal_align horizontal alignment of \code{text}. Possible values are c("left","center","right"). Defaults to \code{"left"}.
-#' @param vertical_align vertical alignment of \code{text}. Possible values are \code{c("top","middle","bottom")}. Defaults to \code{"top"}.
-#' @param wrap_text logical. Whether text wrapping is enabled. Defaults to \code{TRUE}.
-#' @param background_color HTML color string. Sets the background color of the box. Defaults to \code{"Transparent"}.
-#' @param font_family HTML font family string. Sets the font family of \code{text}. Defaults to \code{"sans-serif"}.
-#' @param font_size integer. Sets the font size of \code{text} in pixels. Defaults to 11.
-#' @param font_color HTML color string. Sets the font color of \code{text}. Defaults to \code{"black"}.
-#' @param font_bold logical. Whether to bold \code{text}. Defaults to \code{FALSE}.
-#' @param font_italic logical. Whether to have italic \code{text}. Defaults to \code{FALSE}.
-#' @param font_underline logical. Whether to underline \code{text}. Defaults to \code{FALSE}.
-#' @param font_strikethrough logical. Whether to draw a horizontal line across \code{text}. Defaults to code{FALSE}.
-#' @param border_width integer. Sets the border width in pixels. Defaults to 0.
-#' @param border_color HTML color string. Sets the border color. Defaults to "Transparent".
-#' @param border_style HTML border style string. Sets border style. Defaults to "Solid".
-#' @param as_html logical. Whether to interpret \code{text} as raw html. Defaults to \code{FALSE}.
+#' @param horizontal.align horizontal alignment of \code{text}. Possible values are c("left","center","right"). Defaults to \code{"left"}.
+#' @param vertical.align vertical alignment of \code{text}. Possible values are \code{c("top","middle","bottom")}. Defaults to \code{"top"}.
+#' @param wrap.text logical. Whether text wrapping is enabled. Defaults to \code{TRUE}.
+#' @param background.color HTML color string. Sets the background color of the box. Defaults to \code{"Transparent"}.
+#' @param font.family HTML font family string. Sets the font family of \code{text}. Defaults to \code{"sans-serif"}.
+#' @param font.size integer. Sets the font size of \code{text} in pixels. Defaults to 11.
+#' @param font.color HTML color string. Sets the font color of \code{text}. Defaults to \code{"black"}.
+#' @param font.bold logical. Whether to bold \code{text}. Defaults to \code{FALSE}.
+#' @param font.italic logical. Whether to have italic \code{text}. Defaults to \code{FALSE}.
+#' @param font.underline logical. Whether to underline \code{text}. Defaults to \code{FALSE}.
+#' @param font.strikethrough logical. Whether to draw a horizontal line across \code{text}. Defaults to code{FALSE}.
+#' @param border.width integer. Sets the border width in pixels. Defaults to 0.
+#' @param border.color HTML color string. Sets the border color. Defaults to "Transparent".
+#' @param border.style HTML border style string. Sets border style. Defaults to "Solid".
+#' @param as.html logical. Whether to interpret \code{text} as raw html. Defaults to \code{FALSE}.
 #' @param width integer. Width of the widget in pixels. Defaults to NULL, which automatically calculates the width based on window size.
 #' @param height integer. Height of the widget in pixels. Defaults to NULL, which automatically calculates the height based on window size.
 

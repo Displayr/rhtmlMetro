@@ -4,46 +4,46 @@
 \alias{Box}
 \title{Box}
 \usage{
-Box(text = NULL, horizontal_align = "left", vertical_align = "top",
-  wrap_text = TRUE, background_color = "Transparent",
-  font_family = "sans-serif", font_size = 11, font_color = "black",
-  font_bold = FALSE, font_italic = FALSE, font_underline = FALSE,
-  font_strikethrough = FALSE, border_width = 0,
-  border_color = "Transparent", border_style = "Solid", as_html = FALSE,
+Box(text = NULL, horizontal.align = "left", vertical.align = "top",
+  wrap.text = TRUE, background.color = "Transparent",
+  font.family = "sans-serif", font.size = 11, font.color = "black",
+  font.bold = FALSE, font.italic = FALSE, font.underline = FALSE,
+  font.strikethrough = FALSE, border.width = 0,
+  border.color = "Transparent", border.style = "Solid", as.html = FALSE,
   width = NULL, height = NULL)
 }
 \arguments{
 \item{text}{character. Adding text to the box.}
 
-\item{horizontal_align}{horizontal alignment of \code{text}. Possible values are c("left","center","right"). Defaults to \code{"left"}.}
+\item{horizontal.align}{horizontal alignment of \code{text}. Possible values are c("left","center","right"). Defaults to \code{"left"}.}
 
-\item{vertical_align}{vertical alignment of \code{text}. Possible values are \code{c("top","middle","bottom")}. Defaults to \code{"top"}.}
+\item{vertical.align}{vertical alignment of \code{text}. Possible values are \code{c("top","middle","bottom")}. Defaults to \code{"top"}.}
 
-\item{wrap_text}{logical. Whether text wrapping is enabled. Defaults to \code{TRUE}.}
+\item{wrap.text}{logical. Whether text wrapping is enabled. Defaults to \code{TRUE}.}
 
-\item{background_color}{HTML color string. Sets the background color of the box. Defaults to \code{"Transparent"}.}
+\item{background.color}{HTML color string. Sets the background color of the box. Defaults to \code{"Transparent"}.}
 
-\item{font_family}{HTML font family string. Sets the font family of \code{text}. Defaults to \code{"sans-serif"}.}
+\item{font.family}{HTML font family string. Sets the font family of \code{text}. Defaults to \code{"sans-serif"}.}
 
-\item{font_size}{integer. Sets the font size of \code{text} in pixels. Defaults to 11.}
+\item{font.size}{integer. Sets the font size of \code{text} in pixels. Defaults to 11.}
 
-\item{font_color}{HTML color string. Sets the font color of \code{text}. Defaults to \code{"black"}.}
+\item{font.color}{HTML color string. Sets the font color of \code{text}. Defaults to \code{"black"}.}
 
-\item{font_bold}{logical. Whether to bold \code{text}. Defaults to \code{FALSE}.}
+\item{font.bold}{logical. Whether to bold \code{text}. Defaults to \code{FALSE}.}
 
-\item{font_italic}{logical. Whether to have italic \code{text}. Defaults to \code{FALSE}.}
+\item{font.italic}{logical. Whether to have italic \code{text}. Defaults to \code{FALSE}.}
 
-\item{font_underline}{logical. Whether to underline \code{text}. Defaults to \code{FALSE}.}
+\item{font.underline}{logical. Whether to underline \code{text}. Defaults to \code{FALSE}.}
 
-\item{font_strikethrough}{logical. Whether to draw a horizontal line across \code{text}. Defaults to code{FALSE}.}
+\item{font.strikethrough}{logical. Whether to draw a horizontal line across \code{text}. Defaults to code{FALSE}.}
 
-\item{border_width}{integer. Sets the border width in pixels. Defaults to 0.}
+\item{border.width}{integer. Sets the border width in pixels. Defaults to 0.}
 
-\item{border_color}{HTML color string. Sets the border color. Defaults to "Transparent".}
+\item{border.color}{HTML color string. Sets the border color. Defaults to "Transparent".}
 
-\item{border_style}{HTML border style string. Sets border style. Defaults to "Solid".}
+\item{border.style}{HTML border style string. Sets border style. Defaults to "Solid".}
 
-\item{as_html}{logical. Whether to interpret \code{text} as raw html. Defaults to \code{FALSE}.}
+\item{as.html}{logical. Whether to interpret \code{text} as raw html. Defaults to \code{FALSE}.}
 
 \item{width}{integer. Width of the widget in pixels. Defaults to NULL, which automatically calculates the width based on window size.}
 
