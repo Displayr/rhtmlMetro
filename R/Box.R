@@ -25,7 +25,7 @@
 #' @export
 
 Box <- function(
-    text = NULL,
+    text = "",
     horizontal.align = "left",
     vertical.align = "top",
     wrap.text = TRUE,

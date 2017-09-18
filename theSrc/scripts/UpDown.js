@@ -48,6 +48,21 @@ class UpDown {
       .attr('width', this.width + 'px')
       .attr('height', this.height + 'px')
 
+    let arrow = updown.append('g')
+      .attr('class', 'arrow')
+
+    let number = updown.append('g')
+      .attr('class', 'number')
+
+    let unit;
+    if (this.config.topunit || this.config.bottomunit) {
+      unit = updown.append('g')
+        .attr('class', 'unit')
+    }
+
+
+
+
   }
 
   _clearRootElement () {
