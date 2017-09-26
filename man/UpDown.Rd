@@ -18,7 +18,7 @@ UpDown(arrow.style = "triangle", arrow.up = TRUE, arrow.size = 15,
 
 \item{arrow.up}{logical. Products an upwards arrow, otherwise downwards. Result changes based on \code{arrow.style}. Defaults to \code{TRUE}.}
 
-\item{arrow.size}{integer. Arrow size in pixels. Defaults to 15.}
+\item{arrow.size}{integer. Arrow size in pixels. Defaults to 15 px.}
 
 \item{arrow.color}{HTML color string. Sets arrow color. Defaults to \code{"black"}.}
 
@@ -28,7 +28,7 @@ UpDown(arrow.style = "triangle", arrow.up = TRUE, arrow.size = 15,
 
 \item{x.font.family}{HTML font family string. Sets the font family of \code{x}. Defaults to \code{"sans-serif"}.}
 
-\item{x.font.size}{integer. Sets the font size of \code{x} in pixels. Defaults to 20.}
+\item{x.font.size}{integer. Sets the font size of \code{x} in points. Defaults to 20 pt.}
 
 \item{x.font.color}{HTML color string. Sets the font color of \code{x}. Defaults to \code{"black"}.}
 
@@ -44,7 +44,7 @@ UpDown(arrow.style = "triangle", arrow.up = TRUE, arrow.size = 15,
 
 \item{topunit.font.color}{HTML color string. Sets the font color of \code{topunit}. Defaults to \code{"black"}.}
 
-\item{topunit.font.size}{integer. Sets the font size of \code{x} in pixels. Defaults to 12.}
+\item{topunit.font.size}{integer. Sets the font size of \code{x} in points. Defaults to 12 pt.}
 
 \item{bottomunit}{character. The unit on the top right corner of \code{topunit}. Defaults to \code{NULL}.}
 
@@ -52,7 +52,7 @@ UpDown(arrow.style = "triangle", arrow.up = TRUE, arrow.size = 15,
 
 \item{bottomunit.font.color}{HTML color string. Sets the font color of \code{bottomunit}. Defaults to \code{"black"}.}
 
-\item{bottomunit.font.size}{integer. Sets the font size of \code{bottomunit} in pixels. Defaults to 12.}
+\item{bottomunit.font.size}{integer. Sets the font size of \code{bottomunit} in pixels. Defaults to 12 pt.}
 }
 \description{
 Creates an UpDown element.

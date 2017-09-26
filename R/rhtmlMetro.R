@@ -8,7 +8,7 @@
 #' @param wrap.text logical. Whether text wrapping is enabled. Defaults to \code{TRUE}.
 #' @param background.color HTML color string. Sets the background color of the box. Defaults to \code{"Transparent"}.
 #' @param font.family HTML font family string. Sets the font family of \code{text}. Defaults to \code{"sans-serif"}.
-#' @param font.size integer. Sets the font size of \code{text} in pixels. Defaults to 11.
+#' @param font.size integer. Sets the font size of \code{text} in points. Defaults to 11 pt.
 #' @param font.color HTML color string. Sets the font color of \code{text}. Defaults to \code{"black"}.
 #' @param font.bold logical. Whether to bold \code{text}. Defaults to \code{FALSE}.
 #' @param font.italic logical. Whether to have italic \code{text}. Defaults to \code{FALSE}.
@@ -22,7 +22,7 @@
 #' @param height integer. Height of the widget in pixels. Defaults to NULL, which automatically calculates the height based on window size.
 
 #' @import htmlwidgets
-#' @export
+#' @export 
 
 Box <- function(
     text = " ",
@@ -90,13 +90,13 @@ Box <- function(
 #'
 #' @param arrow.style character. Sets the style of the arrow. Possible values are c("triangle", "arrow", "forward arrow", "plus", "none"). "none" produces no arrow.
 #' @param arrow.up logical. Products an upwards arrow, otherwise downwards. Result changes based on \code{arrow.style}. Defaults to \code{TRUE}.
-#' @param arrow.size integer. Arrow size in pixels. Defaults to 15.
+#' @param arrow.size integer. Arrow size in pixels. Defaults to 15 px.
 #' @param arrow.color HTML color string. Sets arrow color. Defaults to \code{"black"}.
 #' @param arrow.width numeric. The proportion of the width in which the arrow is to be drawn. Valid range between \code{c(0,1)}. Without \code{topunit} or \code{bottomunit}, default is 0.5. Otherwise defaults to 0.3.
 
 #' @param x character. The value to be shown.
 #' @param x.font.family HTML font family string. Sets the font family of \code{x}. Defaults to \code{"sans-serif"}.
-#' @param x.font.size integer. Sets the font size of \code{x} in pixels. Defaults to 20.
+#' @param x.font.size integer. Sets the font size of \code{x} in points. Defaults to 20 pt.
 #' @param x.font.color HTML color string. Sets the font color of \code{x}. Defaults to \code{"black"}.
 #' @param x.width numeric. The proportion of the width in which the number is to appear. Valid range between \code{c(0,1)}. Without \code{topunit} or \code{bottomunit}, default is 0.5. Otherwise defaults to 0.4.
 
@@ -106,16 +106,16 @@ Box <- function(
 #' @param topunit character. The unit on the top right corner of \code{x}. Defaults to \code{NULL}.
 #' @param topunit.font.family HTML font family string. Sets the font family of \code{topunit}. Defaults to \code{"sans-serif"}.
 #' @param topunit.font.color HTML color string. Sets the font color of \code{topunit}. Defaults to \code{"black"}.
-#' @param topunit.font.size integer. Sets the font size of \code{x} in pixels. Defaults to 12.
+#' @param topunit.font.size integer. Sets the font size of \code{x} in points. Defaults to 12 pt.
 
 #' @param bottomunit character. The unit on the top right corner of \code{topunit}. Defaults to \code{NULL}.
 #' @param bottomunit.font.family HTML font family string. Sets the font family of \code{bottomunit}. Defaults to \code{"sans-serif"}.
 #' @param bottomunit.font.color HTML color string. Sets the font color of \code{bottomunit}. Defaults to \code{"black"}.
-#' @param bottomunit.font.size integer. Sets the font size of \code{bottomunit} in pixels. Defaults to 12.
+#' @param bottomunit.font.size integer. Sets the font size of \code{bottomunit} in pixels. Defaults to 12 pt.
 
 #' 
 #' @import htmlwidgets
-#' @export
+#' @export 
 
 UpDown <- function(
     arrow.style = "triangle",

@@ -25,7 +25,7 @@ Box(text = " ", horizontal.align = "left", vertical.align = "top",
 
 \item{font.family}{HTML font family string. Sets the font family of \code{text}. Defaults to \code{"sans-serif"}.}
 
-\item{font.size}{integer. Sets the font size of \code{text} in pixels. Defaults to 11.}
+\item{font.size}{integer. Sets the font size of \code{text} in points. Defaults to 11 pt.}
 
 \item{font.color}{HTML color string. Sets the font color of \code{text}. Defaults to \code{"black"}.}
 
