@@ -7,6 +7,7 @@
 #' @param vertical.align vertical alignment of \code{text}. Possible values are \code{c("top","middle","bottom")}. Defaults to \code{"top"}.
 #' @param wrap.text logical. Whether text wrapping is enabled. Defaults to \code{TRUE}.
 #' @param background.color HTML color string. Sets the background color of the box. Defaults to \code{"Transparent"}.
+#' @param background.shape character. Specifies the shape of the background with options \code{"Rectangle", "Ellipse"}, and defaults to "Rectangle".
 #' @param font.family HTML font family string. Sets the font family of \code{text}. Defaults to \code{"sans-serif"}.
 #' @param font.size integer. Sets the font size of \code{text} in points. Defaults to 11 pt.
 #' @param font.color HTML color string. Sets the font color of \code{text}. Defaults to \code{"black"}.
@@ -30,6 +31,7 @@ Box <- function(
     vertical.align = "top",
     wrap.text = TRUE,
     background.color = "Transparent",
+    background.shape = "Rectangle",
     font.family = "sans-serif",
     font.size = 11,
     font.color = "black",
@@ -51,6 +53,7 @@ Box <- function(
         vertical_align = vertical.align,
         wrap_text = wrap.text,
         background_color = background.color,
+        background_shape = background.shape,
         font_family = font.family,
         font_size = font.size,
         font_color = font.color,
