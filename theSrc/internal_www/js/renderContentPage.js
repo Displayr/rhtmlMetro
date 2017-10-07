@@ -20,9 +20,10 @@ const defaultConfig = {
   font_italic: true,
   font_underline: false,
   font_strikethrough: true,
-  border_width: 1,
-  border_color: "black",
-  border_style: "Solid",
+  border_width: 3,
+  border_color: "blue",
+  border_style: "Dashed",
+  background_shape: "Ellipse",
   as_html: false
 }
 
