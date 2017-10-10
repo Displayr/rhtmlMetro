@@ -14,7 +14,7 @@ const defaultConfig = {
   wrap_text: true,
   background_color: "#eeeeee",
   font_family: "Impact",
-  font_size: 20,
+  font_size: 12,
   font_color: 'blue',
   font_bold: true,
   font_italic: true,

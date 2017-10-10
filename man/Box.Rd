@@ -4,24 +4,26 @@
 \alias{Box}
 \title{Box}
 \usage{
-Box(text = " ", horizontal.align = "left", vertical.align = "top",
+Box(text = " ", horizontal.align = "center", vertical.align = "middle",
   wrap.text = TRUE, background.color = "Transparent",
-  font.family = "sans-serif", font.size = 11, font.color = "black",
-  font.bold = FALSE, font.italic = FALSE, font.underline = FALSE,
-  font.strikethrough = FALSE, border.width = 0,
-  border.color = "Transparent", border.style = "Solid", as.html = FALSE,
-  width = NULL, height = NULL)
+  background.shape = "Rectangle", font.family = "sans-serif",
+  font.size = 11, font.color = "black", font.bold = FALSE,
+  font.italic = FALSE, font.underline = FALSE, font.strikethrough = FALSE,
+  border.width = 0, border.color = "Transparent", border.style = "Solid",
+  as.html = FALSE, width = NULL, height = NULL)
 }
 \arguments{
 \item{text}{character. Adding text to the box.}
 
-\item{horizontal.align}{horizontal alignment of \code{text}. Possible values are c("left","center","right"). Defaults to \code{"left"}.}
+\item{horizontal.align}{horizontal alignment of \code{text}. Possible values are c("left","center","right"). Defaults to \code{"center"}.}
 
-\item{vertical.align}{vertical alignment of \code{text}. Possible values are \code{c("top","middle","bottom")}. Defaults to \code{"top"}.}
+\item{vertical.align}{vertical alignment of \code{text}. Possible values are \code{c("top","middle","bottom")}. Defaults to \code{"middle"}.}
 
 \item{wrap.text}{logical. Whether text wrapping is enabled. Defaults to \code{TRUE}.}
 
 \item{background.color}{HTML color string. Sets the background color of the box. Defaults to \code{"Transparent"}.}
+
+\item{background.shape}{character. Specifies the shape of the background with options \code{"Rectangle", "Ellipse"}, and defaults to "Rectangle".}
 
 \item{font.family}{HTML font family string. Sets the font family of \code{text}. Defaults to \code{"sans-serif"}.}
 
@@ -43,11 +45,11 @@ Box(text = " ", horizontal.align = "left", vertical.align = "top",
 
 \item{border.style}{HTML border style string. Sets border style. Defaults to "Solid".}
 
-\item{as.html}{logical. Whether to interpret \code{text} as raw html. Defaults to \code{FALSE}.}
-
 \item{width}{integer. Width of the widget in pixels. Defaults to NULL, which automatically calculates the width based on window size.}
 
 \item{height}{integer. Height of the widget in pixels. Defaults to NULL, which automatically calculates the height based on window size.}
+
+\item{text.as.html}{logical. Whether to interpret \code{text} as raw html. Defaults to \code{FALSE}.}
 }
 \description{
 Creates an html Div container box with multiple features.

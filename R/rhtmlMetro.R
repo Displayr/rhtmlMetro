@@ -3,8 +3,9 @@
 #' Creates an html Div container box with multiple features.
 #' 
 #' @param text character. Adding text to the box.
-#' @param horizontal.align horizontal alignment of \code{text}. Possible values are c("left","center","right"). Defaults to \code{"left"}.
-#' @param vertical.align vertical alignment of \code{text}. Possible values are \code{c("top","middle","bottom")}. Defaults to \code{"top"}.
+#' @param text.as.html logical. Whether to interpret \code{text} as raw html. Defaults to \code{FALSE}.
+#' @param horizontal.align horizontal alignment of \code{text}. Possible values are c("left","center","right"). Defaults to \code{"center"}.
+#' @param vertical.align vertical alignment of \code{text}. Possible values are \code{c("top","middle","bottom")}. Defaults to \code{"middle"}.
 #' @param wrap.text logical. Whether text wrapping is enabled. Defaults to \code{TRUE}.
 #' @param background.color HTML color string. Sets the background color of the box. Defaults to \code{"Transparent"}.
 #' @param background.shape character. Specifies the shape of the background with options \code{"Rectangle", "Ellipse"}, and defaults to "Rectangle".
@@ -18,7 +19,6 @@
 #' @param border.width integer. Sets the border width in pixels. Defaults to 0.
 #' @param border.color HTML color string. Sets the border color. Defaults to "Transparent".
 #' @param border.style HTML border style string. Sets border style. Defaults to "Solid".
-#' @param as.html logical. Whether to interpret \code{text} as raw html. Defaults to \code{FALSE}.
 #' @param width integer. Width of the widget in pixels. Defaults to NULL, which automatically calculates the width based on window size.
 #' @param height integer. Height of the widget in pixels. Defaults to NULL, which automatically calculates the height based on window size.
 
@@ -27,8 +27,9 @@
 
 Box <- function(
     text = " ",
-    horizontal.align = "left",
-    vertical.align = "top",
+    text.as.html = FALSE,
+    horizontal.align = "center",
+    vertical.align = "middle",
     wrap.text = TRUE,
     background.color = "Transparent",
     background.shape = "Rectangle",
@@ -42,7 +43,6 @@ Box <- function(
     border.width = 0,
     border.color = "Transparent",
     border.style = "Solid",
-    as.html = FALSE,
     width = NULL,
     height = NULL
 ) {
@@ -64,7 +64,7 @@ Box <- function(
         border_width = border.width,
         border_color = border.color,
         border_style = border.style,
-        as_html = as.html,
+        as_html = text.as.html,
         class = "box",
         width = width,
         height = height
