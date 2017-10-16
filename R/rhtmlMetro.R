@@ -4,8 +4,8 @@
 #' 
 #' @param text character. Adding text to the box.
 #' @param text.as.html logical. Whether to interpret \code{text} as raw html. Defaults to \code{FALSE}.
-#' @param horizontal.align horizontal alignment of \code{text}. Possible values are c("left","center","right"). Defaults to \code{"center"}.
-#' @param vertical.align vertical alignment of \code{text}. Possible values are \code{c("top","middle","bottom")}. Defaults to \code{"middle"}.
+#' @param horizontal.align horizontal alignment of \code{text}. Possible values are c("left","center","right"). Defaults to \code{"left"}.
+#' @param vertical.align vertical alignment of \code{text}. Possible values are \code{c("top","middle","bottom")}. Defaults to \code{"top"}.
 #' @param wrap.text logical. Whether text wrapping is enabled. Defaults to \code{TRUE}.
 #' @param background.color HTML color string. Sets the background color of the box. Defaults to \code{"Transparent"}.
 #' @param background.shape character. Specifies the shape of the background with options \code{"Rectangle", "Ellipse"}, and defaults to "Rectangle".
@@ -28,8 +28,8 @@
 Box <- function(
     text = " ",
     text.as.html = FALSE,
-    horizontal.align = "center",
-    vertical.align = "middle",
+    horizontal.align = NULL,
+    vertical.align = NULL,
     wrap.text = TRUE,
     background.color = "Transparent",
     background.shape = "Rectangle",
@@ -46,6 +46,22 @@ Box <- function(
     width = NULL,
     height = NULL
 ) {
+    
+    if (background.shape == "Ellipse") {
+        if (is.null(horizontal.align)) {
+            horizontal.align = "center"
+        }
+        if (is.null(vertical.align)) {
+            vertical.align = "middle"
+        }     
+    } else {
+        if (is.null(horizontal.align)) {
+            horizontal.align = "left"
+        }
+        if (is.null(vertical.align)) {
+            vertical.align = "top"
+        }        
+    }
     
     payload <- list(
         text = text,
