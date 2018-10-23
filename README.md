@@ -72,3 +72,5 @@ If this worked, then the `gulp serve` command opened your browser and you are lo
         install.packages("devtools")
         install.packages("roxygen2")
     ```
+
+[![Displayr logo](https://mwmclean.github.io/img/logo-header.png)](https://www.displayr.com)
