@@ -22,7 +22,7 @@
 #' @param width integer. Width of the widget in pixels. Defaults to NULL, which automatically calculates the width based on window size.
 #' @param height integer. Height of the widget in pixels. Defaults to NULL, which automatically calculates the height based on window size.
 
-#' @import htmlwidgets
+#' @importFrom htmlwidgets createWidget
 #' @export 
 
 Box <- function(
@@ -133,7 +133,7 @@ Box <- function(
 #' @param bottomunit.font.size integer. Sets the font size of \code{bottomunit} in pixels. Defaults to 12 pt.
 
 #' 
-#' @import htmlwidgets
+#' @importFrom htmlwidgets createWidget
 #' @export 
 
 UpDown <- function(
