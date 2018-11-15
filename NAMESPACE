@@ -2,4 +2,4 @@
 
 export(Box)
 export(UpDown)
-import(htmlwidgets)
+importFrom(htmlwidgets,createWidget)
