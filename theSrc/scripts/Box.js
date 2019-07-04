@@ -9,19 +9,9 @@ class Box {
     this.widgetName = 'Box'
   }
 
-  constructor (el, stateChangedCallback) {
+  constructor (el) {
     this.id = `${this.widgetName}-${this.widgetIndex++}`
     this.rootElement = _.has(el, 'length') ? el[0] : el
-    this.state = {}
-    this.stateChangedCallback = stateChangedCallback
-  }
-
-  resize () {
-
-  }
-
-  setUserState (userState = {}) {
-    return this
   }
 
   setConfig (config) {
@@ -42,11 +32,11 @@ class Box {
   draw () {
     this._clearRootElement()
     let containerEl = d3.select(this.rootElement)
+      .attr('data-widget-type', 'rhtmlMetro')
 
     let containerBG
 
-    if (this.config.background_shape == 'Rectangle') {
-
+    if (this.config.background_shape === 'Rectangle') {
       let containerMain = containerEl
         .append('div')
         .attr('class', 'MetroBox')
@@ -56,8 +46,8 @@ class Box {
       let box = containerMain.append('div')
         .attr('class', 'MetroBoxInner')
         .style('display', 'table')
-        .style('width', this.config.border_width == 0 ? this.width + 'px' : (this.width-this.config.border_width*2) + 'px')
-        .style('height', this.config.border_width == 0 ? this.height + 'px' : (this.height-this.config.border_width*2) + 'px')
+        .style('width', this.config.border_width === 0 ? this.width + 'px' : (this.width - this.config.border_width * 2) + 'px')
+        .style('height', this.config.border_width === 0 ? this.height + 'px' : (this.height - this.config.border_width * 2) + 'px')
         .style('text-align', this.config.horizontal_align)
         .style('white-space', () => {
           if (this.config.wrap_text) {
@@ -68,9 +58,9 @@ class Box {
         })
 
       box.style('background-color', this.config.background_color)
-      .style('border-style', this.config.border_style)
-      .style('border-width', this.config.border_width + 'px')
-      .style('border-color', this.config.border_color)
+        .style('border-style', this.config.border_style)
+        .style('border-width', this.config.border_width + 'px')
+        .style('border-color', this.config.border_color)
 
       if (this.config.text) {
         let box1 = box.append('tspan')
@@ -85,11 +75,10 @@ class Box {
           .style('font-weight', this.config.font_bold ? 'bold' : 'normal')
           .style('font-style', this.config.font_italic ? 'italic' : 'normal')
           .style('text-decoration', () => {
-            let dec = 'none'
             if (this.config.font_strikethrough) {
               return 'line-through'
             }
-              
+
             if (this.config.font_underline) {
               return 'underline'
             }
@@ -101,34 +90,30 @@ class Box {
           box1.text(this.config.text)
         }
       }
-
-    } else if (this.config.background_shape == 'Ellipse'){
-
+    } else if (this.config.background_shape === 'Ellipse') {
       containerBG = containerEl
-      .append('svg')
-      .attr('class', 'MetroBoxBg')
-      .style('position', 'Absolute')
-      .style('top', 0)
-      .style('left', 0)
-      .attr('width', this.width + 'px')
-      .attr('height', this.height + 'px')
+        .append('svg')
+        .attr('class', 'MetroBoxBg')
+        .style('position', 'Absolute')
+        .style('top', 0)
+        .style('left', 0)
+        .attr('width', this.width + 'px')
+        .attr('height', this.height + 'px')
 
-      let boxTextWidth = Math.sqrt(3)/4 * this.width * 2
-      let boxTextX = this.width/2 - boxTextWidth/2
-      let boxTextY = this.height/2
+      let boxTextWidth = Math.sqrt(3) / 4 * this.width * 2
 
       let containerMain = containerEl
         .append('div')
         .attr('class', 'MetroBox')
         .style('position', 'Absolute')
-        .style('top', this.height/4 + 'px')
-        .style('left', (this.width - boxTextWidth)/2 + 'px')
+        .style('top', this.height / 4 + 'px')
+        .style('left', (this.width - boxTextWidth) / 2 + 'px')
         .style('width', boxTextWidth + 'px')
 
       let box = containerMain.append('div')
         .attr('class', 'MetroBoxInner')
         .style('display', 'table')
-        .style('width', this.config.border_width == 0 ? boxTextWidth + 'px' : (boxTextWidth-this.config.border_width*2) + 'px')
+        .style('width', this.config.border_width === 0 ? boxTextWidth + 'px' : (boxTextWidth - this.config.border_width * 2) + 'px')
         .style('height', 0)
         .style('text-align', this.config.horizontal_align)
         .style('white-space', () => {
@@ -141,16 +126,16 @@ class Box {
 
       containerBG.append('ellipse')
         .attr('class', 'BoxEllipse')
-        .attr('cx',this.width/2 + 'px')
-        .attr('cy',this.height/2 + 'px')
-        .attr('rx',this.config.border_width == 0 ? this.width/2 + 'px' : (this.width-this.config.border_width*2)/2 + 'px')
-        .attr('ry',this.config.border_width == 0 ? this.height/2 + 'px' : (this.height-this.config.border_width*2)/2 + 'px')
+        .attr('cx', this.width / 2 + 'px')
+        .attr('cy', this.height / 2 + 'px')
+        .attr('rx', this.config.border_width === 0 ? this.width / 2 + 'px' : (this.width - this.config.border_width * 2) / 2 + 'px')
+        .attr('ry', this.config.border_width === 0 ? this.height / 2 + 'px' : (this.height - this.config.border_width * 2) / 2 + 'px')
         .style('stroke', this.config.border_color)
         .style('stroke-width', this.config.border_width + 'px')
-        .style('stroke-dasharray', ()=>{
-          if (this.config.border_style == 'Solid') {
+        .style('stroke-dasharray', () => {
+          if (this.config.border_style === 'Solid') {
             return undefined
-          } else if (this.config.border_style == 'Dashed') {
+          } else if (this.config.border_style === 'Dashed') {
             return '7,7'
           } else {
             console.log('Error: Elliptic background only support Solid or Dashed borders')
@@ -173,11 +158,10 @@ class Box {
           .style('font-weight', this.config.font_bold ? 'bold' : 'normal')
           .style('font-style', this.config.font_italic ? 'italic' : 'normal')
           .style('text-decoration', () => {
-            let dec = 'none'
             if (this.config.font_strikethrough) {
               return 'line-through'
             }
-              
+
             if (this.config.font_underline) {
               return 'underline'
             }
@@ -190,19 +174,17 @@ class Box {
         }
 
         box.select('tspan')
-        .each(function(d) {
-          let v = this.getBoundingClientRect().height
-          boxTextHeight = v
-          console.log(boxTextHeight)
-        })
+          .each(function (d) {
+            let v = this.getBoundingClientRect().height
+            boxTextHeight = v
+            console.log(boxTextHeight)
+          })
 
-        containerMain.style('top', (this.height - boxTextHeight)/2 + 'px')
+        containerMain.style('top', (this.height - boxTextHeight) / 2 + 'px')
       }
-
     } else {
-      console.log('Incorrect background color input')
+      console.log('Incorrect background shape input')
     }
-
   }
 
   _clearRootElement () {

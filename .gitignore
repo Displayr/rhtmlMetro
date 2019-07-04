@@ -10,3 +10,4 @@ browser
 .tmp/snapshots.feature
 .DS_Store
 
+.tmp

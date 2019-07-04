@@ -1,0 +1,13 @@
+{
+  "widgetEntryPoint": "theSrc/scripts/rhtmlMetro.js",
+  "widgetFactory": "theSrc/scripts/rhtmlMetro.factory.js",
+  "widgetName": "rhtmlMetro",
+  "visualRegressionSuite": {},
+  "internalWebSettings": {
+    "includeDimensionsOnWidgetDiv": true,
+    "default_border": false,
+    "isReadySelector": "[data-widget-type=\"rhtmlMetro\"]",
+    "css": [],
+    "singleWidgetSnapshotSelector": "#widget-container"
+  }
+}
