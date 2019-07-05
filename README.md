@@ -13,7 +13,6 @@ Simplest Example to verify installation:
 rhtmlMetro::Box(text = "text")
 ```
 
-
 # Local Installation to Develop/Contribute
 
 **Prerequisites** - For help installing prerequisites see the `Prequisite Installation Help` section below
