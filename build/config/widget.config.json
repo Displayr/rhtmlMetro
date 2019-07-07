@@ -8,6 +8,6 @@
     "default_border": false,
     "isReadySelector": "[data-widget-type=\"rhtmlMetro\"]",
     "css": [],
-    "singleWidgetSnapshotSelector": "#widget-container"
+    "singleWidgetSnapshotSelector": "body"
   }
 }

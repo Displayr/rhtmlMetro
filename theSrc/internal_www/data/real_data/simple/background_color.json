@@ -1,0 +1,22 @@
+{
+  "text": "background color",
+  "horizontal_align": "left",
+  "vertical_align": "top",
+  "wrap_text": true,
+  "background_color": "blue",
+  "background_shape": "Rectangle",
+  "font_family": "sans-serif",
+  "font_size": 30,
+  "font_color": "white",
+  "font_bold": false,
+  "font_italic": false,
+  "font_underline": false,
+  "font_strikethrough": false,
+  "border_width": 0,
+  "border_color": "Transparent",
+  "border_style": "Solid",
+  "as_html": false,
+  "class": "box",
+  "width": null,
+  "height": null
+}
