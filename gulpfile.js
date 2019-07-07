@@ -1,5 +1,10 @@
 const gulp = require('gulp')
 const rhtmlBuildUtils = require('rhtmlBuildUtils')
 
-const dontRegisterTheseTasks = []
+gulp.task('testSpecs', gulp.series(function (done) {
+  console.log('skipping test')
+  done()
+}))
+
+const dontRegisterTheseTasks = ['testSpecs']
 rhtmlBuildUtils.registerGulpTasks({ gulp, exclusions: dontRegisterTheseTasks })

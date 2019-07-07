@@ -1,0 +1,22 @@
+{
+  "text": "underline",
+  "horizontal_align": "center",
+  "vertical_align": "Bottom",
+  "wrap_text": true,
+  "background_color": "rgba(255, 0, 0)",
+  "background_shape": "Rectangle",
+  "font_family": "Courier",
+  "font_size": 20,
+  "font_color": "black",
+  "font_bold": false,
+  "font_italic": false,
+  "font_underline": true,
+  "font_strikethrough": false,
+  "border_width": 8,
+  "border_color": "rgba(0,255,0,.5)",
+  "border_style": "Solid",
+  "as_html": false,
+  "class": "box",
+  "width": null,
+  "height": null
+}
