@@ -11,6 +11,8 @@ Simplest Example to verify installation:
 
 ```
 rhtmlMetro::Box(text = "text")
+
+rhtmlMetro::Box(text = "ellipse", border.width = 3, border.color = "black", background.shape = "Ellipse", background.color = "lightblue")
 ```
 
 

@@ -1,0 +1,21 @@
+{
+  "width": 200,
+  "height": 200,
+  "text": "XXXXXX",
+  "horizontal_align": "center",
+  "vertical_align": "center",
+  "wrap_text": true,
+  "background_color": "red",
+  "font_family": "Impact",
+  "font_size": 20,
+  "font_color": "blue",
+  "font_bold": true,
+  "font_italic": true,
+  "font_underline": false,
+  "font_strikethrough": true,
+  "border_width": 5,
+  "border_color": "#cccccc50",
+  "border_style": "Dashed",
+  "background_shape": "Ellipse",
+  "as_html": false
+}

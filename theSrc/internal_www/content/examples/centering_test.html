@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Arvo:400,700italic,700,400italic' rel='stylesheet' type='text/css'>
+  <link href='/styles/internal_www.css' rel='stylesheet' type='text/css'>
+</head>
+<body>
+<!-- NB Important dev note: This file is used to auto generate r files in the examples directory. If you modify ensure you maintain the format of sections, containing h2, p, and div.example elements -->
+
+<h1>Verify centering works even wth borders</h1>
+<h2>note the dashed lines are not part of widget</h2>
+
+<div snapshot-name="centering_examples">
+  <div class="row">
+    <div style="position:relative">
+      <div class="grid-lines left-half-200x200"></div>
+      <div class="grid-lines top-half-200x200"></div>
+      <pre class="example" data-width="200" data-height="200" data-config='data.test.minimal_ellipse|{ "border_width": 0, "horizontal_align": "center", "text": "00" }'></pre>
+    </div>
+    <div style="position:relative">
+      <div class="grid-lines left-half-200x200"></div>
+      <div class="grid-lines top-half-200x200"></div>
+      <pre class="example" data-width="200" data-height="200" data-config='data.test.minimal_ellipse|{ "horizontal_align": "center", "text": "00" }'></pre>
+    </div>
+    <div style="position:relative">
+      <div class="grid-lines left-half-200x200"></div>
+      <div class="grid-lines top-half-200x200"></div>
+      <pre class="example" data-width="200" data-height="200" data-config='data.test.minimal_ellipse|{ "border_width": 12, "horizontal_align": "center", "text": "00" }'></pre>
+    </div>
+    <div style="position:relative">
+      <div class="grid-lines left-half-300x200"></div>
+      <div class="grid-lines top-half-300x200"></div>
+      <pre class="example" data-width="300" data-height="200" data-config='data.test.minimal_ellipse|{ "border_width": 12, "horizontal_align": "center", "text": "00" }'></pre>
+    </div>
+    <div style="position:relative">
+      <div class="grid-lines left-half-200x300"></div>
+      <div class="grid-lines top-half-200x300"></div>
+      <pre class="example" data-width="200" data-height="300" data-config='data.test.minimal_ellipse|{ "border_width": 12, "horizontal_align": "center", "text": "00" }'></pre>
+    </div>
+  </div>
+
+  <div class="row">
+    <div style="position:relative">
+      <div class="grid-lines left-half-200x200"></div>
+      <div class="grid-lines top-half-200x200"></div>
+      <pre class="example" data-width="200" data-height="200" data-config='data.test.minimal_rectangle|{ "border_width": 0, "horizontal_align": "center", "vertical_align": "middle", "text": "00" }'></pre>
+    </div>
+    <div style="position:relative">
+      <div class="grid-lines left-half-200x200"></div>
+      <div class="grid-lines top-half-200x200"></div>
+      <pre class="example" data-width="200" data-height="200" data-config='data.test.minimal_rectangle|{ "horizontal_align": "center", "vertical_align": "middle", "text": "00" }'></pre>
+    </div>
+    <div style="position:relative">
+      <div class="grid-lines left-half-200x200"></div>
+      <div class="grid-lines top-half-200x200"></div>
+      <pre class="example" data-width="200" data-height="200" data-config='data.test.minimal_rectangle|{ "border_width": 12, "horizontal_align": "center", "vertical_align": "middle", "text": "00" }'></pre>
+    </div>
+  </div>
+</div>
+
+<script src="/js/renderContentPage.js"></script>
+<style>
+  .grid-lines {
+    position: absolute;
+    box-sizing: border-box;
+    border: dashed 0.5px grey;
+    z-index: 100;
+    top: 10px; /* account for .example padding */
+    left: 10px; /* account for .example padding */
+  }
+
+  .left-half-200x200 {
+    width: 100px;
+    height: 200px;
+  }
+
+  .top-half-200x200 {
+    width: 200px;
+    height: 100px;
+  }
+
+  .left-half-200x300 {
+    width: 100px;
+    height: 300px;
+  }
+
+  .top-half-200x300 {
+    width: 200px;
+    height: 150px;
+  }
+
+  .left-half-300x200 {
+    width: 150px;
+    height: 200px;
+  }
+
+  .top-half-300x200 {
+    width: 300px;
+    height: 100px;
+  }
+
+
+</style>
+</body>
+</html>

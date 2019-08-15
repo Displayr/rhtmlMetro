@@ -8,8 +8,9 @@
   "extends": "standard",
   "plugins": [
     "standard",
-    "promise",
+    "promise"
   ],
   "rules": {
+    "camelcase": "off"
   }
 }

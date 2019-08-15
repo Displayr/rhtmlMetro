@@ -1,7 +1,7 @@
 version: 1
-data_directory: "data/real_data/simple"
-width: 200
-height: 200
+data_directory: "data/test/html"
+width: 250
+height: 250
 type: for_each_data_in_directory
 use_config_as_title: true
 comments: []

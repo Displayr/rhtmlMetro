@@ -1,0 +1,17 @@
+version: 1
+title: in a wide ellipse vary horizontal and vertical alignment for wrapping text
+general_comments:
+  - 'Variables to test: [horizontal_align, vertical_align].'
+  - 'Vertical alignment is not implemented for ellipse'
+width: 350
+height: 250
+rowSize: 3
+type: single_page_one_example_per_config
+comments: []
+data: 'data.test.minimal_ellipse|data.test.32_words_of_text'
+config: [
+  '{ "horizontal_align": "left", "vertical_align": "top" }',    '{ "horizontal_align": "center", "vertical_align": "top" }',    '{ "horizontal_align": "right", "vertical_align": "top" }',
+  '{ "horizontal_align": "left", "vertical_align": "middle" }', '{ "horizontal_align": "center", "vertical_align": "middle" }', '{ "horizontal_align": "right", "vertical_align": "middle" }',
+  '{ "horizontal_align": "left", "vertical_align": "bottom" }', '{ "horizontal_align": "center", "vertical_align": "bottom" }', '{ "horizontal_align": "right", "vertical_align": "bottom" }',
+]
+
