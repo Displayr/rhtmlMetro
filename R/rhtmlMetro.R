@@ -4,8 +4,8 @@
 #' 
 #' @param text character. Adding text to the box.
 #' @param text.as.html logical. Whether to interpret \code{text} as raw html. Defaults to \code{FALSE}.
-#' @param horizontal.align horizontal alignment of \code{text}. Possible values are c("left","center","right"). Defaults to \code{"left"}.
-#' @param vertical.align vertical alignment of \code{text}. Possible values are \code{c("top","middle","bottom")}. Defaults to \code{"top"}.
+#' @param horizontal.align horizontal alignment of \code{text}. Possible values are c("left","center","right"). Ellipse defaults to \code{"center"}, Rectangle defaults to \code{"left"}.
+#' @param vertical.align vertical alignment of \code{text}. Possible values are \code{c("top","middle","bottom")}. Ellipse defaults to \code{"middle"}, Rectangle defaults to \code{"top"}.
 #' @param wrap.text logical. Whether text wrapping is enabled. Defaults to \code{TRUE}.
 #' @param background.color HTML color string. Sets the background color of the box. Defaults to \code{"Transparent"}.
 #' @param background.shape character. Specifies the shape of the background with options \code{"Rectangle", "Ellipse"}, and defaults to "Rectangle".
@@ -46,25 +46,26 @@ Box <- function(
     width = NULL,
     height = NULL
 ) {
-    
+
     if (background.shape == "Ellipse") {
         if (is.null(horizontal.align)) {
             horizontal.align = "center"
         }
         if (is.null(vertical.align)) {
             vertical.align = "middle"
-        }     
+        }
     } else {
         if (is.null(horizontal.align)) {
             horizontal.align = "left"
         }
         if (is.null(vertical.align)) {
             vertical.align = "top"
-        }        
+        }
     }
-    
+
     payload <- list(
         text = text,
+        as_html = text.as.html,
         horizontal_align = horizontal.align,
         vertical_align = vertical.align,
         wrap_text = wrap.text,
@@ -80,7 +81,6 @@ Box <- function(
         border_width = border.width,
         border_color = border.color,
         border_style = border.style,
-        as_html = text.as.html,
         class = "box",
         width = width,
         height = height

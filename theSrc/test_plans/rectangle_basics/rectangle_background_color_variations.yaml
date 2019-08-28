@@ -1,0 +1,15 @@
+version: 1
+title: vary background color
+general_comments:
+  - 'Variables to test: [background_color].'
+width: 250
+height: 250
+rowSize: 6
+type: single_page_one_example_per_config
+data: 'data.test.minimal_rectangle'
+config: [
+  '{ "background_color": "Transparent" }',
+  '{ "background_color": "lightblue" }',
+  '{ "background_color": "black" }',
+]
+

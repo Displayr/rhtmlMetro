@@ -1,0 +1,12 @@
+version: 1
+title: minimal ellipse example
+width: 250
+height: 250
+rowSize: 6
+type: single_page_one_example_per_config
+comments: []
+data: 'data.test.minimal_ellipse'
+config: [
+  ''
+]
+

@@ -1,0 +1,17 @@
+version: 1
+title: wraptext variations
+general_comments:
+  - 'Variables to test: [wrap_text].'
+width: 250
+height: 250
+rowSize: 3
+type: single_page_one_example_per_config
+comments:
+  - location: 1
+    text: nowrap causes widget to expand beyond bounday
+    status: red
+data: 'data.test.minimal_rectangle|data.test.32_words_of_text'
+config: [
+  '{ "wrap_text": true }',
+  '{ "wrap_text": false }',
+]

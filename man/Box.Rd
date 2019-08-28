@@ -18,9 +18,9 @@ Box(text = " ", text.as.html = FALSE, horizontal.align = NULL,
 
 \item{text.as.html}{logical. Whether to interpret \code{text} as raw html. Defaults to \code{FALSE}.}
 
-\item{horizontal.align}{horizontal alignment of \code{text}. Possible values are c("left","center","right"). Defaults to \code{"left"}.}
+\item{horizontal.align}{horizontal alignment of \code{text}. Possible values are c("left","center","right"). Ellipse defaults to \code{"center"}, Rectangle defaults to \code{"left"}.}
 
-\item{vertical.align}{vertical alignment of \code{text}. Possible values are \code{c("top","middle","bottom")}. Defaults to \code{"top"}.}
+\item{vertical.align}{vertical alignment of \code{text}. Possible values are \code{c("top","middle","bottom")}. Ellipse defaults to \code{"middle"}, Rectangle defaults to \code{"top"}.}
 
 \item{wrap.text}{logical. Whether text wrapping is enabled. Defaults to \code{TRUE}.}
 

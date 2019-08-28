@@ -1,0 +1,17 @@
+version: 1
+title: vary font settings
+general_comments:
+  - 'Variables to test: [font_family, font_size, font_color, font_bold, font_italic, font_underline, font_strikethrough].'
+width: 250
+height: 250
+rowSize: 6
+type: single_page_one_example_per_config
+data: 'data.test.minimal_rectangle'
+config: [
+  '{ "font_family": "fantasy", "font_size": "48", "font_color": "red" }',
+  '{ "text": "bold", "font_bold": true }',
+  '{ "text": "italic", "font_italic": true }',
+  '{ "text": "underline", "font_underline": true }',
+  '{ "text": "strikethrough", "font_strikethrough": true }',
+]
+

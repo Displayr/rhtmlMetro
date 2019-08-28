@@ -1,0 +1,29 @@
+version: 1
+title: vary border style and width
+general_comments:
+  - 'Variables to test: [border_width, border_color, border_style].'
+width: 250
+height: 250
+rowSize: 6
+type: single_page_one_example_per_config
+comments: []
+data: 'data.test.minimal_rectangle'
+config: [
+  '{ "border_style": "Solid", "border_color": "black", "border_width": 0 }',
+  '{ "border_style": "Solid", "border_color": "black", "border_width": 2 }',
+  '{ "border_style": "Solid", "border_color": "black", "border_width": 4 }',
+  '{ "border_style": "Solid", "border_color": "black", "border_width": 8 }',
+  '{ "border_style": "Solid", "border_color": "black", "border_width": 16 }',
+  '{ "border_style": "Solid", "border_color": "black", "border_width": 32 }',
+
+  '{ "border_style": "Dashed", "border_color": "black", "border_width": 0 }',
+  '{ "border_style": "Dashed", "border_color": "black", "border_width": 2 }',
+  '{ "border_style": "Dashed", "border_color": "black", "border_width": 4 }',
+  '{ "border_style": "Dashed", "border_color": "black", "border_width": 8 }',
+  '{ "border_style": "Dashed", "border_color": "black", "border_width": 16 }',
+  '{ "border_style": "Dashed", "border_color": "black", "border_width": 32 }',
+
+  '{ "border_style": "Dashed", "border_color": "red", "border_width": 3 }',
+  '{ "border_style": "Dashed", "border_color": "Transparent", "border_width": 3 }',
+]
+
