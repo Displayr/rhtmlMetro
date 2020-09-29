@@ -4,14 +4,27 @@
 \alias{Box}
 \title{Box}
 \usage{
-Box(text = " ", text.as.html = FALSE, horizontal.align = NULL,
-  vertical.align = NULL, wrap.text = TRUE,
-  background.color = "Transparent", background.shape = "Rectangle",
-  font.family = "sans-serif", font.size = 11, font.color = "black",
-  font.bold = FALSE, font.italic = FALSE, font.underline = FALSE,
-  font.strikethrough = FALSE, border.width = 0,
-  border.color = "Transparent", border.style = "Solid", width = NULL,
-  height = NULL)
+Box(
+  text = " ",
+  text.as.html = FALSE,
+  horizontal.align = NULL,
+  vertical.align = NULL,
+  wrap.text = TRUE,
+  background.color = "Transparent",
+  background.shape = "Rectangle",
+  font.family = "sans-serif",
+  font.size = 11,
+  font.color = "black",
+  font.bold = FALSE,
+  font.italic = FALSE,
+  font.underline = FALSE,
+  font.strikethrough = FALSE,
+  border.width = 0,
+  border.color = "Transparent",
+  border.style = "Solid",
+  width = NULL,
+  height = NULL
+)
 }
 \arguments{
 \item{text}{character. Adding text to the box.}

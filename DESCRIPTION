@@ -8,4 +8,4 @@ Description: An opinionated template for the creation of html widget repositorie
 License: GPL-3
 LazyData: TRUE
 Imports: htmlwidgets
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.1
