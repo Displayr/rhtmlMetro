@@ -14,8 +14,8 @@
     "rhtmlBuildUtils": "github:Displayr/rhtmlBuildUtils#4.0.1"
   },
   "dependencies": {
-    "babel-polyfill": "^6.26.0",
     "d3": "4.7.2",
+    "idempotent-babel-polyfill": "^7.4.4",
     "lodash": "^4.17.15"
   }
 }

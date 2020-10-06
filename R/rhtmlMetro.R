@@ -1,7 +1,7 @@
 #' Box
 #'
 #' Creates an html Div container box with multiple features.
-#'
+#' 
 #' @param text character. Adding text to the box.
 #' @param text.as.html logical. Whether to interpret \code{text} as raw html. Defaults to \code{FALSE}.
 #' @param horizontal.align horizontal alignment of \code{text}. Possible values are c("left","center","right"). Ellipse defaults to \code{"center"}, Rectangle defaults to \code{"left"}.
@@ -23,7 +23,7 @@
 #' @param height integer. Height of the widget in pixels. Defaults to NULL, which automatically calculates the height based on window size.
 
 #' @importFrom htmlwidgets createWidget
-#' @export
+#' @export 
 
 Box <- function(
     text = " ",
@@ -85,7 +85,7 @@ Box <- function(
         width = width,
         height = height
     )
-
+    
     htmlwidgets::createWidget(
         name = 'rhtmlMetro',
         payload,
