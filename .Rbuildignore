@@ -1,0 +1,11 @@
+.eslintignore
+.eslintrc
+.travis.yml
+^.*\.Rproj$
+^\.Rproj\.user$
+browser
+gulpfile.js
+node_modules
+package-lock.json
+package.json
+theSrc
