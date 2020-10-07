@@ -86,8 +86,6 @@ Box <- function(
         height = height
     )
 
-    attr(payload, "can-run-in-root-dom") <- TRUE
-
     htmlwidgets::createWidget(
         name = 'rhtmlMetro',
         payload,
