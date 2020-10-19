@@ -35,7 +35,7 @@ module.exports = function (element) {
 const containerDimensions = (element) => {
   const rootElement = _.has(element, 'length') ? element[0] : element
   try {
-    return rootElement.getBoundingClientRect()
+    return { width: rootElement.offsetWidth, height: rootElement.offsetHeight }
   } catch (err) {
     err.message = `fail in containerDimensions: ${err.message}`
     throw err
