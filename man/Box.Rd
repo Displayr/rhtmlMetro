@@ -23,7 +23,8 @@ Box(
   border.color = "Transparent",
   border.style = "Solid",
   width = NULL,
-  height = NULL
+  height = NULL,
+  as.iframe = TRUE
 )
 }
 \arguments{
@@ -64,6 +65,8 @@ Box(
 \item{width}{integer. Width of the widget in pixels. Defaults to NULL, which automatically calculates the width based on window size.}
 
 \item{height}{integer. Height of the widget in pixels. Defaults to NULL, which automatically calculates the height based on window size.}
+
+\item{as.iframe}{logical. Specifies whether the widget should render in an iframe (if true) or without an iframe (if false).}
 }
 \description{
 Creates an html Div container box with multiple features.
