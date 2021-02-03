@@ -21,7 +21,6 @@
 #' @param border.style HTML border style string. Sets border style. Defaults to "Solid".
 #' @param width integer. Width of the widget in pixels. Defaults to NULL, which automatically calculates the width based on window size.
 #' @param height integer. Height of the widget in pixels. Defaults to NULL, which automatically calculates the height based on window size.
-#' @param as.iframe logical. Specifies whether the widget should render in an iframe (if true) or without an iframe (if false).
 
 #' @importFrom htmlwidgets createWidget
 #' @export
@@ -102,9 +101,5 @@ Box <- function(
         ),
         package = 'rhtmlMetro'
     )
-    # Adding this attribute allows the widget to be used without being embedded in an iframe
-    # See DS-3109 and the related epic of RS-6897
-    if (!as.iframe)
-        attr(w, "can-run-in-root-dom") <- TRUE
     w
 }
