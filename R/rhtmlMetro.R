@@ -44,8 +44,7 @@ Box <- function(
     border.color = "Transparent",
     border.style = "Solid",
     width = NULL,
-    height = NULL,
-    as.iframe = TRUE
+    height = NULL
 ) {
 
     if (background.shape == "Ellipse") {
@@ -81,7 +80,6 @@ Box <- function(
         font_strikethrough = font.strikethrough,
         border_width = border.width,
         border_color = border.color,
-        border_style = border.style,
         border_style = border.style,
         class = "box",
         width = width,

@@ -23,8 +23,7 @@ Box(
   border.color = "Transparent",
   border.style = "Solid",
   width = NULL,
-  height = NULL,
-  as.iframe = TRUE
+  height = NULL
 )
 }
 \arguments{
