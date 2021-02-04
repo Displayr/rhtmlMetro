@@ -99,8 +99,5 @@ Box <- function(
         ),
         package = 'rhtmlMetro'
     )
-    # Adding this attribute allows the widget to be used without being embedded in an iframe
-    # See DS-3109 and the related epic of RS-6897
-    attr(w, "can-run-in-root-dom") <- TRUE
     w
 }

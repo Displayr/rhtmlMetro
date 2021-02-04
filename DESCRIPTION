@@ -1,7 +1,7 @@
 Package: rhtmlMetro
 Type: Package
 Title: rhtmlMetro
-Version: 1.0.1
+Version: 1.0.2
 Author: Displayr <opensource@displayr.com>
 Maintainer: Displayr <opensource@displayr.com>
 Description: An opinionated template for the creation of html widget repositories using ES6
@@ -9,3 +9,4 @@ License: GPL-3
 LazyData: TRUE
 Imports: htmlwidgets
 RoxygenNote: 7.1.1
+Encoding: UTF-8
