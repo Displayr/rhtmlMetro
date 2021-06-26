@@ -1,10 +1,12 @@
 {
+  "name": "rhtmlMetro",
   "private": true,
   "engines": {
     "node": ">=6.9.5"
   },
   "scripts": {
     "prepush": "node ./build/bin/prepush",
+    "preinstall": "([ \"$CI\" != true ] && npx npm-force-resolutions) || true",
     "test": "npm run localTest",
     "localTest": "gulp testSpecs && gulp testVisual --env=local --branch=`git rev-parse --abbrev-ref HEAD`",
     "travisTest": "gulp testSpecs && gulp testVisual --env=travis --branch=$BRANCH",
@@ -17,13 +19,19 @@
   },
   "devDependencies": {
     "gulp": "^4.0.2",
-    "husky": "^0.13.3",
-    "jquery": "^3.6.0",
-    "rhtmlBuildUtils": "github:Displayr/rhtmlBuildUtils#7.0.3"
+    "npm-force-resolutions": "0.0.10",
+    "rhtmlBuildUtils": "github:Displayr/rhtmlBuildUtils#7.1.1"
   },
   "dependencies": {
     "d3": "4.7.2",
     "idempotent-babel-polyfill": "^7.4.4",
     "lodash": "^4.17.21"
+  },
+  "resolutions": {
+    "glob-parent": "5.1.2",
+    "ini": "1.3.8",
+    "minimist": "1.2.5",
+    "y18n": "4.0.3",
+    "yargs-parser": "18.1.3"
   }
 }
