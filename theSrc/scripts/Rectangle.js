@@ -48,7 +48,7 @@ class Rectangle {
       horizontal_align,
       text,
       vertical_align,
-      wrap_text
+      wrap_text,
     } = this.config
 
     let containerMain = containerEl

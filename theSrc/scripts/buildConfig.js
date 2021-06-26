@@ -15,7 +15,7 @@ const defaultConfig = {
   font_strikethrough: false,
   font_underline: false,
   text: ' ',
-  wrap_text: true
+  wrap_text: true,
 }
 
 const buildConfig = (userConfig) => _.merge(

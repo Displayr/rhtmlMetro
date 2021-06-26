@@ -10,7 +10,7 @@ const config = {
     default_border: false,
     isReadySelector: '[data-widget-type="rhtmlMetro"]',
     css: [],
-    singleWidgetSnapshotSelector: '#widget-container'
+    singleWidgetSnapshotSelector: '#widget-container',
   },
   snapshotTesting: {
     puppeteer: {
