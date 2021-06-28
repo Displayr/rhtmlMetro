@@ -48,7 +48,7 @@ class Ellipse {
       horizontal_align,
       text,
       vertical_align,
-      wrap_text
+      wrap_text,
     } = this.config
 
     let ellipseInnerWidth = this.width
@@ -120,7 +120,7 @@ module.exports = Ellipse
 const verticalAlignToJustifyContentMap = {
   top: 'flex-start',
   middle: 'center',
-  bottom: 'flex-end'
+  bottom: 'flex-end',
 }
 const verticalAlignToJustifyContent = (verticalAlign) =>
   verticalAlignToJustifyContentMap[verticalAlign] || 'center'

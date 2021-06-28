@@ -28,7 +28,7 @@ module.exports = function (element) {
         .setWidth(width)
         .setHeight(height)
         .draw()
-    }
+    },
   }
 }
 
