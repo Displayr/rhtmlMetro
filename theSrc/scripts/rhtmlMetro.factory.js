@@ -5,8 +5,10 @@ import buildConfig from './buildConfig'
 
 module.exports = function (element) {
   let instance
+  let isRenderValueCalled = false // temporary flag for VIS-1000
   return {
     renderValue (incomingConfig) {
+      isRenderValueCalled = true
       const config = _.merge(buildConfig(incomingConfig), containerDimensions(element))
       const { width, height } = containerDimensions(element)
       console.log('renderValue. Observed container size:', JSON.stringify({ width, height }))
@@ -22,6 +24,9 @@ module.exports = function (element) {
     },
 
     resize () {
+      if (!isRenderValueCalled) {
+        throw new Error('VIS-1000: resize called before renderValue!')
+      }
       const { width, height } = containerDimensions(element)
       console.log('resize. Observed container size:', JSON.stringify({ width, height }))
       instance
