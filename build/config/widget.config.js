@@ -8,7 +8,7 @@ const config = {
   internalWebSettings: {
     includeDimensionsOnWidgetDiv: true,
     default_border: false,
-    isReadySelector: '[data-widget-type="rhtmlMetro"]',
+    isReadySelector: 'div[htmlwidget-status="ready"]',
     css: [],
     singleWidgetSnapshotSelector: '#widget-container',
   },

@@ -30,7 +30,7 @@ class Rectangle {
   draw () {
     this._clearRootElement()
     let containerEl = d3.select(this.rootElement)
-      .attr('data-widget-type', 'rhtmlMetro')
+      .attr('htmlwidget-status', 'loading')
 
     const {
       as_html,
@@ -104,6 +104,8 @@ class Rectangle {
         box1.text(text)
       }
     }
+
+    containerEl.attr('htmlwidget-status', 'ready')
   }
 
   _clearRootElement () {
