@@ -30,7 +30,7 @@ class Ellipse {
   draw () {
     this._clearRootElement()
     let containerEl = d3.select(this.rootElement)
-      .attr('data-widget-type', 'rhtmlMetro')
+      .attr('htmlwidget-status', 'loading')
 
     const {
       as_html,
@@ -102,6 +102,8 @@ class Ellipse {
         box.text(text)
       }
     }
+
+    containerEl.attr('htmlwidget-status', 'ready')
   }
 
   _clearRootElement () {

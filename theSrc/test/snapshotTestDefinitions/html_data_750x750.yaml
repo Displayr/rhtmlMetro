@@ -1,5 +1,5 @@
 version: 1
-data_directory: "data/real_data/complex"
+data_directory: "data/html_data"
 width: 750
 height: 750
 type: for_each_data_in_directory
