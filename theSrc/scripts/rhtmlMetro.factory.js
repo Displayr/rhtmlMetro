@@ -25,7 +25,12 @@ module.exports = function (element) {
 
     resize () {
       if (!isRenderValueCalled) {
-        throw new Error('VIS-1000: resize called before renderValue!')
+        setTimeout(() => {
+          if (!isRenderValueCalled) {
+            throw new Error('VIS-1000: renderValue still not called after 5 seconds. Size: ' + JSON.stringify(containerDimensions(element)));
+          }
+        }, 5000);
+        return
       }
       const { width, height } = containerDimensions(element)
       console.log('resize. Observed container size:', JSON.stringify({ width, height }))
