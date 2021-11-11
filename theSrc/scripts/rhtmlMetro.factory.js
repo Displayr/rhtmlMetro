@@ -27,9 +27,9 @@ module.exports = function (element) {
       if (!isRenderValueCalled) {
         setTimeout(() => {
           if (!isRenderValueCalled) {
-            throw new Error('VIS-1000: renderValue still not called after 5 seconds. Size: ' + JSON.stringify(containerDimensions(element)));
+            throw new Error('VIS-1000: renderValue still not called after 5 seconds. Size: ' + JSON.stringify(containerDimensions(element)))
           }
-        }, 5000);
+        }, 5000)
         return
       }
       const { width, height } = containerDimensions(element)
