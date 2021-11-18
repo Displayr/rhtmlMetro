@@ -1,5 +1,5 @@
-import _ from 'lodash'
-import * as d3 from 'd3'
+const _ = require('lodash')
+const d3 = require('d3')
 
 class Rectangle {
   static initClass () {
