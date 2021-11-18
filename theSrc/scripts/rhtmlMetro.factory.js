@@ -1,7 +1,7 @@
-import _ from 'lodash'
-import Ellipse from './Ellipse'
-import Rectangle from './Rectangle'
-import buildConfig from './buildConfig'
+const _ = require('lodash')
+const Ellipse = require('./Ellipse')
+const Rectangle = require('./Rectangle')
+const buildConfig = require('./buildConfig')
 
 module.exports = function (element) {
   let instance
