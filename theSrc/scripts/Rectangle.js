@@ -56,7 +56,6 @@ class Rectangle {
     let containerEl = d3.select(this.rootElement)
       .attr('htmlwidget-status', 'loading')
 
-
     let containerMain = containerEl
       .append('div')
       .attr('class', 'MetroRectangle')
