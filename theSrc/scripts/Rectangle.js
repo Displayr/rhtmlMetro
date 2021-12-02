@@ -47,7 +47,7 @@ class Rectangle {
       wrap_text,
     } = this.config
 
-    // VIS-1021: allow embedded youtube videos to go to full screen
+    // VIS-1021: allow embedded youtube videos to go to fullscreen
     if (as_html && text.match('allowfullscreen') && this.width === window.screen.width && this.height === window.screen.height) {
       return
     }
