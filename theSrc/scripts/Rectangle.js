@@ -28,10 +28,6 @@ class Rectangle {
   }
 
   draw () {
-    this._clearRootElement()
-    let containerEl = d3.select(this.rootElement)
-      .attr('htmlwidget-status', 'loading')
-
     const {
       as_html,
       border_color,
@@ -50,6 +46,15 @@ class Rectangle {
       vertical_align,
       wrap_text,
     } = this.config
+
+    // VIS-1021: allow embedded youtube videos to go to fullscreen
+    if (as_html && text.match('allowfullscreen') && this.width === window.screen.width && this.height === window.screen.height) {
+      return
+    }
+
+    this._clearRootElement()
+    let containerEl = d3.select(this.rootElement)
+      .attr('htmlwidget-status', 'loading')
 
     let containerMain = containerEl
       .append('div')
