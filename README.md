@@ -1,67 +1,25 @@
+[![](https://travis-ci.org/Displayr/rhtmlMetro.svg?branch=master)](https://travis-ci.org/Displayr/rhtmlMetro/)
+[![Coverage Status](https://coveralls.io/repos/github/Displayr/rhtmlMetro/badge.svg?branch=master)](https://coveralls.io/github/Displayr/rhtmlMetro?branch=master)
 # rhtmlMetro
 
 rhtmlMetro
 
-# Installation in R
-
-1. `library(devtools)`
-1. `install_github('Displayr/rhtmlMetro')`
-
-Simplest Example to verify installation:
-
+To install from GitHub
 ```
-rhtmlMetro::Box(text = "text")
-
-rhtmlMetro::Box(text = "ellipse", border.width = 3, border.color = "black", background.shape = "Ellipse", background.color = "lightblue")
+require(devtools)
+install_github("Displayr/rhtmlMetro", dependencies = NA)
 ```
 
+If you have not set up a GitHub Personal Access Token, you will likely need to do so to avoid 
+GitHub rate limits, which will manifest as 403 errors when downloading packages via
+`install_github`. Please see the documentation in the `usethis` package or see the 
+instructions [here](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) and [here](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token).
 
-# Local Installation to Develop/Contribute
+If you are using Windows, you will need to have a version of Rtools installed that matches your
+version of R in order to build packages from source. Rtools can be downloaded from
+[here](https://cran.r-project.org/bin/windows/Rtools/).
 
-**Prerequisites** - For help installing prerequisites see the `Prequisite Installation Help` section below
-
-1. nodejs >= 8.15
-1. (optional) r >= 3.0.0 - you can develop without R, but cannot produce r docs or test in r 
-
-## Installing the rhtmlMetro code
-
-1. Change directory to the place where you put git projects
-1. type `git clone git@github.com:Displayr/rhtmlMetro.git` ENTER
-1. type `cd rhtmlMetro` ENTER
-1. type `npm install` ENTER
-    1. `npm install` is noisy and will print several warnings about `UNMET` and `DEPRECATED`. Ignore these and only make note of errors. If it fails, try running it again.
-1. type `gulp serve` ENTER
-    1. If `gulp serve` does not work try `./node_modules/.bin/gulp serve`. To correct this and to make your nodejs life easier you should add `./node_modules/.bin` to your PATH. Consult the Internet for instructions on how to do so on your OS of choice.
-
-If this worked, then the `gulp serve` command opened your browser and you are looking at `http://localhost:9000`. You should see a page listing a bunch of links to examples, each example shows the simple 4 square widget template. These examples are defined in the [internal www content directory](theSrc/internal_www/content).
-
-## Prerequisite Installation Help
-
-### Install nodejs on OSX
-
-1. Install brew by following instructions here : http://brew.sh/
-1. Install nvm (node version manager) by running `brew install nvm`
-1. Install node by running `nvm install 6.1.0` on the terminal
-
-### Install nodejs on Windows
-
-1. Setup nodist. https://github.com/marcelklehr/nodist and find the link to the official installer.
-1. Open the command prompt. Type: `nodist v6.1.0`
-1. Type `node -v` and verify the version is correct
-
-### R on OSX
-
-1. Install brew by following instructions here : http://brew.sh/
-1. Run the following commands:
-    ```
-    brew tap homebrew/science
-    brew install Caskroom/cask/xquartz
-    brew install r
-    ```
-1. Now start r by running the R `r` command, and in the R terminal run these commands:
-    ```
-        install.packages("devtools")
-        install.packages("roxygen2")
-    ```
+Specifying `dependencies = NA` in `install_github` will not install packages listed
+in `Suggests` in the `DESCRIPTION` file (some of which may be proprietary and unavailable for download).
 
 [![Displayr logo](https://mwmclean.github.io/img/logo-header.png)](https://www.displayr.com)
