@@ -47,8 +47,8 @@ class Rectangle {
       wrap_text,
     } = this.config
 
-    // VIS-1021: allow embedded youtube videos to go to fullscreen
-    if (as_html && typeof text === 'string' && text.match('allowfullscreen') && this.width === window.screen.width && this.height === window.screen.height) {
+    // VIS-1021 and RS-12497: don't redraw as embedded videos have gone to fullscreen
+    if (as_html && typeof text === 'string' && (this._isYoutubeFullScreen(text) || this._isVideoTagFullScreen(text))) {
       return
     }
 
@@ -111,6 +111,14 @@ class Rectangle {
     }
 
     containerEl.attr('htmlwidget-status', 'ready')
+  }
+
+  _isYoutubeFullScreen (html) {
+    return html.match('youtube') && this.width === window.screen.width && this.height === window.screen.height
+  }
+
+  _isVideoTagFullScreen (html) {
+    return html.match('<video>') && this.width === window.screen.width && this.height === window.screen.height
   }
 
   _clearRootElement () {
