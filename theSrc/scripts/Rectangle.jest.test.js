@@ -16,7 +16,7 @@ test('VIS-1010 and RS-12497: root element not cleared upon resizing due to enter
     el.append(inner_div)
 
     const rect = new Rectangle(el)
-    rect.setConfig({ as_html: true, text: youtube })
+    rect.setConfig({ as_html: true, text: t })
     rect.setWidth(window.screen.width)
     rect.setHeight(window.screen.height)
     rect.draw()
