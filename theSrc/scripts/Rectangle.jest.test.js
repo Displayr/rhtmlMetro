@@ -4,7 +4,7 @@ const youtube = '<style>.embed-container { position: relative; padding-bottom: 5
   '.embed-container iframe, .embed-container object, .embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }</style>' +
   '<div class="embed-container"><iframe src="https://www.youtube.com/embed/QILiHiTD3uc" frameborder="0" allowfullscreen></iframe></div>'
 
-const video_tag = '<video width="480px" height="360px" controls>' +
+const video_tag = '<video width="480px" height="360px" controls>\n' +
   '<source src="https://wario.blob.core.windows.net/videos/profiling1.mp4?sp=r&st=2020-08-19T03:00:36Z&se=2050-08-19T11:00:36Z&spr=https&sv=2019-12-12&sr=b&sig=MGIsz3yPx2djI40awmA%2FS4ha0RZMFf2cQbUZqqkgkus%3D" >' +
   '</video>'
 

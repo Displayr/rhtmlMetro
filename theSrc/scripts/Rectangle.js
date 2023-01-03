@@ -118,7 +118,7 @@ class Rectangle {
   }
 
   _isVideoTagFullScreen (html) {
-    return html.match('\\<video.*\\</video\\>') && this.width === window.screen.width && this.height === window.screen.height
+    return html.match('\\<video[\\s\\S]*\\</video\\>') && this.width === window.screen.width && this.height === window.screen.height
   }
 
   _clearRootElement () {
