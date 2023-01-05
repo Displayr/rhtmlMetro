@@ -114,11 +114,11 @@ class Rectangle {
   }
 
   _isYoutubeFullScreen (html) {
-    return html.match('www\\.youtube\\.com/embed') && this.width === window.screen.width && this.height === window.screen.height
+    return html.match('www\\.youtube\\.com/embed') && document.fullscreenElement !== null
   }
 
   _isVideoTagFullScreen (html) {
-    return html.match('\\<video[\\s\\S]*\\</video\\>') && this.width === window.screen.width && this.height === window.screen.height
+    return html.match('\\<video[\\s\\S]*\\</video\\>') && document.fullscreenElement !== null
   }
 
   _clearRootElement () {

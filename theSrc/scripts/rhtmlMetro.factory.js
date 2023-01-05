@@ -5,7 +5,7 @@ const buildConfig = require('./buildConfig')
 
 module.exports = function (element) {
   let instance
-  let isRenderValueCalled = false // temporary flag for VIS-1000
+  let isRenderValueCalled = false
   return {
     renderValue (incomingConfig) {
       isRenderValueCalled = true
