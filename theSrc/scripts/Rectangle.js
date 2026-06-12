@@ -1,5 +1,6 @@
 const _ = require('lodash')
 const d3 = require('d3')
+const DOMPurify = require('dompurify')
 
 class Rectangle {
   static initClass () {
@@ -104,7 +105,7 @@ class Rectangle {
         })
 
       if (as_html) {
-        box1.html(text)
+        box1.html(DOMPurify.sanitize(text))
       } else {
         box1.text(text)
       }
