@@ -1,7 +1,5 @@
 const _ = require('lodash')
 const d3 = require('d3')
-const DOMPurify = require('dompurify')
-const SANITIZE_CONFIG = require('./sanitizeConfig')
 
 class Ellipse {
   static initClass () {
@@ -99,7 +97,7 @@ class Ellipse {
         .style('text-decoration', (font_strikethrough) ? 'line-through' : (font_underline) ? 'underline' : '')
 
       if (as_html) {
-        box.html(DOMPurify.sanitize(text, SANITIZE_CONFIG))
+        box.html(text)
       } else {
         box.text(text)
       }
