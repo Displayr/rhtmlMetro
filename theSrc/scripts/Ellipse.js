@@ -1,5 +1,6 @@
 const _ = require('lodash')
 const d3 = require('d3')
+const sanitizeHtml = require('./sanitizeHtml')
 
 class Ellipse {
   static initClass () {
@@ -97,7 +98,7 @@ class Ellipse {
         .style('text-decoration', (font_strikethrough) ? 'line-through' : (font_underline) ? 'underline' : '')
 
       if (as_html) {
-        box.html(text)
+        box.html(sanitizeHtml(text))
       } else {
         box.text(text)
       }
