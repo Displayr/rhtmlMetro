@@ -53,3 +53,67 @@ describe('sanitizeHtml (RS-22478)', () => {
     expect(out).toContain('color:red')
   })
 })
+
+// Regression guards for the hand-rolled CSS scrub. Per the RS-22478 investigation, DOMPurify does
+// NOT sanitize <style> content at all (it either drops the whole block or keeps it verbatim), so
+// stripDangerousCss is the only thing defending this surface — these lock in each vector while
+// ensuring legitimate CSS is preserved intact. Each test also asserts a co-located benign rule
+// survives, so a scrub that simply nukes everything would not pass.
+describe('sanitizeHtml CSS scrub (RS-22478)', () => {
+  test('strips expression() (legacy IE script-in-CSS)', () => {
+    const out = sanitizeHtml('<style>.a{ width: expression(alert(1)) } .b{color:blue}</style>')
+    expect(out).not.toContain('expression')
+    expect(out).toContain('color:blue')
+  })
+
+  test('strips the CSS-escaped form of expression() too', () => {
+    // \65 is the hex escape for "e"; browsers parse \65 xpression( as expression(.
+    const out = sanitizeHtml('<style>.a{ width: \\65 xpression(alert(1)) } .b{color:blue}</style>')
+    expect(out).not.toContain('xpression')
+    expect(out).toContain('color:blue')
+  })
+
+  test('strips -moz-binding (XBL script binding)', () => {
+    const out = sanitizeHtml('<style>.a{ -moz-binding: url("https://evil.example/x.xml#e") } .b{color:blue}</style>')
+    expect(out).not.toContain('moz-binding')
+    expect(out).not.toContain('evil.example')
+    expect(out).toContain('color:blue')
+  })
+
+  test('strips behavior (IE .htc binding)', () => {
+    const out = sanitizeHtml('<style>.a{ behavior: url(evil.htc) } .b{color:blue}</style>')
+    expect(out).not.toContain('behavior')
+    expect(out).not.toContain('evil.htc')
+    expect(out).toContain('color:blue')
+  })
+
+  test('strips javascript: URIs inside CSS', () => {
+    const out = sanitizeHtml('<style>.a{ background: url(javascript:alert(1)) } .b{color:blue}</style>')
+    expect(out).not.toContain('javascript:')
+    expect(out).toContain('color:blue')
+  })
+
+  test('preserves legitimate multi-rule CSS intact (does not over-strip)', () => {
+    const css = '.choice-modelling-design-main-container { overflow: auto; color: #3E7DCC; }' +
+      ' .choice-modelling-design-main-container th { background: white; padding: 5px; }'
+    const out = sanitizeHtml('<style>' + css + '</style><div class="choice-modelling-design-main-container">x</div>')
+    expect(out).toContain('.choice-modelling-design-main-container')
+    expect(out).toContain('overflow: auto')
+    expect(out).toContain('#3E7DCC')
+    expect(out).toContain('padding: 5px')
+    expect(out).toContain('<div class="choice-modelling-design-main-container">x</div>')
+  })
+
+  test('keeps legitimate url() (e.g. background images) — known residual, must not break valid CSS', () => {
+    const out = sanitizeHtml('<style>.hero{ background: url("https://cdn.example/bg.png") }</style>')
+    expect(out).toContain('cdn.example/bg.png')
+  })
+
+  test('retains multiple <style> blocks and preserves their relative order', () => {
+    const out = sanitizeHtml('<style>.a{color:red}</style><p>mid</p><style>.b{color:blue}</style>')
+    expect(out).toContain('color:red')
+    expect(out).toContain('color:blue')
+    expect(out).toContain('mid')
+    expect(out.indexOf('color:red')).toBeLessThan(out.indexOf('color:blue'))
+  })
+})
