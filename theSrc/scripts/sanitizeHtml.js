@@ -32,11 +32,17 @@ const STYLE_BLOCK = /<style\b[^>]*>([\s\S]*?)<\/style>/gi
 
 // CSS lets any character be written as a backslash escape (e.g. \69 == "i", \@ == "@"), so a literal
 // match for @import etc. is bypassable via forms like @\69 mport. Decode escapes first so the scrubs
-// below see the canonical text. (This also decodes legitimate escapes to their character, which
-// renders identically.)
+// below see the canonical text. Note: decoding is global, so in rare cases it can change otherwise-
+// meaningful escapes (e.g. inside a content: "…" string, or an escape used to separate tokens) — an
+// accepted trade-off to defeat the escape-based bypass on this best-effort, lower-severity surface.
 function decodeCssEscapes (css) {
   return css
-    .replace(/\\([0-9a-fA-F]{1,6})[ \t\n\f\r]?/g, (_, hex) => String.fromCodePoint(parseInt(hex, 16)))
+    .replace(/\\([0-9a-fA-F]{1,6})[ \t\n\f\r]?/g, (_, hex) => {
+      // Per CSS spec, a null / out-of-range / surrogate escape maps to U+FFFD — NOT a thrown error.
+      // String.fromCodePoint would otherwise throw a RangeError on e.g. \110000, breaking the render.
+      const cp = parseInt(hex, 16)
+      return (cp === 0 || cp > 0x10FFFF || (cp >= 0xD800 && cp <= 0xDFFF)) ? '�' : String.fromCodePoint(cp)
+    })
     .replace(/\\(.)/g, '$1')
 }
 
@@ -47,6 +53,12 @@ function stripDangerousCss (css) {
     .replace(/-moz-binding\b[^;}]*;?/gi, '')
     .replace(/\bbehaviou?r\s*:[^;}]*;?/gi, '')
     .replace(/javascript\s*:/gi, '')
+    // This scrubbed CSS is re-inserted into a rawtext <style> element OUTSIDE DOMPurify, so it must
+    // not be able to break out of it. After decoding, a literal '<' (e.g. a decoded </style>) would
+    // terminate the element and inject unsanitized markup, so re-escape it as the CSS escape '\3C '
+    // (which renders identically). '>' is left alone: it cannot terminate <style>, and escaping it
+    // would break legitimate '>' child combinators.
+    .replace(/</g, '\\3C ')
 }
 
 module.exports = function sanitizeHtml (text) {

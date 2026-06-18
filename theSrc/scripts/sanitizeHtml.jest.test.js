@@ -116,4 +116,30 @@ describe('sanitizeHtml CSS scrub (RS-22478)', () => {
     expect(out).toContain('mid')
     expect(out.indexOf('color:red')).toBeLessThan(out.indexOf('color:blue'))
   })
+
+  // Review comment 3433312072 (blocker): the scrubbed CSS is re-inserted inside a rawtext <style>
+  // OUTSIDE DOMPurify. After decodeCssEscapes runs, a CSS-escaped </style> (\3C/style\3E) decodes
+  // into a real </style> that terminates the block, and a following \3Cimg ...\3E becomes a live,
+  // unsanitized <img onerror>. The scrubbed CSS must never be able to break out of <style>.
+  test('CSS-escaped </style> breakout cannot inject a live element', () => {
+    const out = sanitizeHtml('<style>x\\3C/style\\3E\\3Cimg src=x onerror=alert(1)\\3E</style>')
+    const div = document.createElement('div')
+    div.innerHTML = out
+    expect(div.querySelector('img')).toBeNull()
+    expect(div.querySelector('script')).toBeNull()
+  })
+
+  // Review comment 3433312088: an out-of-range / surrogate codepoint escape must not throw
+  // (String.fromCodePoint(0x110000) is a RangeError) — that would break the whole Box render.
+  test('out-of-range codepoint escapes do not throw (content-controlled DoS)', () => {
+    expect(() => sanitizeHtml('<style>.a{content:"\\110000"}</style>')).not.toThrow()
+    expect(() => sanitizeHtml('<style>.a{content:"\\d800"}</style>')).not.toThrow()
+  })
+
+  // The breakout fix must escape '<' only — '>' cannot terminate <style>, and escaping it would
+  // break legitimate '>' child combinators in arbitrary as_html CSS.
+  test('preserves > child combinators in CSS', () => {
+    const out = sanitizeHtml('<style>.a > .b{color:red}</style>')
+    expect(out).toContain('.a > .b')
+  })
 })
