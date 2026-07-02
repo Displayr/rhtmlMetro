@@ -143,3 +143,125 @@ describe('sanitizeHtml CSS scrub (RS-22478)', () => {
     expect(out).toContain('.a > .b')
   })
 })
+
+describe('sanitizeHtml Font Awesome <link> allowlist (RS-22478 follow-up)', () => {
+  const FA_LINK = '<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">'
+
+  test('keeps an https Font Awesome CDN stylesheet link', () => {
+    const out = sanitizeHtml(FA_LINK + '<i class="fas fa-arrow-down"></i>')
+    expect(out).toContain('rel="stylesheet"')
+    expect(out).toContain('href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"')
+    expect(out).toContain('<i class="fas fa-arrow-down">')
+  })
+
+  test('preserves the Subresource Integrity hash and crossorigin', () => {
+    const out = sanitizeHtml(FA_LINK)
+    expect(out).toContain('integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"')
+    expect(out).toContain('crossorigin="anonymous"')
+  })
+})
+
+describe('sanitizeHtml <link> allowlist rejects everything else (RS-22478 follow-up)', () => {
+  test('drops a stylesheet link to a non-allowlisted host', () => {
+    expect(sanitizeHtml('<link rel="stylesheet" href="https://evil.example/x.css">')).not.toContain('<link')
+  })
+
+  test('drops a look-alike suffix host (exact match only)', () => {
+    expect(sanitizeHtml('<link rel="stylesheet" href="https://use.fontawesome.com.evil.com/x.css">')).not.toContain('<link')
+  })
+
+  test('drops non-stylesheet rels (e.g. preload)', () => {
+    expect(sanitizeHtml('<link rel="preload" href="https://use.fontawesome.com/x.css">')).not.toContain('<link')
+  })
+
+  test('drops http (non-https) links', () => {
+    expect(sanitizeHtml('<link rel="stylesheet" href="http://use.fontawesome.com/x.css">')).not.toContain('<link')
+  })
+
+  test('drops javascript: hrefs', () => {
+    expect(sanitizeHtml('<link rel="stylesheet" href="javascript:alert(1)">')).not.toContain('<link')
+  })
+
+  test('strips event-handler attributes from an otherwise-allowed link', () => {
+    const out = sanitizeHtml('<link rel="stylesheet" href="https://use.fontawesome.com/x" onload="alert(1)">')
+    expect(out).toContain('<link')
+    expect(out).not.toContain('onload')
+  })
+
+  test('normalises case and whitespace in rel and keeps the link', () => {
+    const out = sanitizeHtml('<LINK REL=" Stylesheet " HREF="https://use.fontawesome.com/x.css">')
+    expect(out).toContain('rel="stylesheet"')
+    expect(out).toContain('href="https://use.fontawesome.com/x.css"')
+  })
+})
+
+describe('sanitizeHtml preserves documented Box features (RS-22478 follow-up)', () => {
+  // Help centre 360004283115 — the KPI box (flex layout + <font> + <i> icon).
+  test('KPI flex-box example survives', () => {
+    const kpi = '<div style="height:100%;background:#61A1E9;display:flex">' +
+      '<div style="flex: 1 1 50%; color: white; display: flex; flex-direction: column; padding: 12pt">' +
+      '<div style="font-size: 32pt; font-weight: bold">45</div><div>Injuries per day</div></div>' +
+      '<div style="flex: 1 1 30%; display: flex; align-items: center;">' +
+      '<font color="red" style="font-size: 48pt"><i class="fas fa-ambulance"></i></font></div></div>'
+    const out = sanitizeHtml(kpi)
+    expect(out).toContain('display:flex')
+    expect(out).toContain('<font color="red"')
+    expect(out).toContain('<i class="fas fa-ambulance">')
+  })
+
+  // Help centre 360004368515 — linking images from an arbitrary public URL.
+  test('image-linking example survives (external <img> host + responsive <style>)', () => {
+    const img = '<style>\n.responsive {\nwidth: 100%;\nheight: auto;\n}\n</style>' +
+      '<img src="https://i.imgur.com/abc123.png" alt="Coca-Cola" class="responsive">'
+    const out = sanitizeHtml(img)
+    expect(out).toContain('<style>')
+    expect(out).toContain('.responsive')
+    expect(out).toContain('src="https://i.imgur.com/abc123.png"')
+    expect(out).toContain('alt="Coca-Cola"')
+  })
+})
+
+// PR #54 review (Kevin Huang): robustness of the raw-text <link> extraction.
+describe('sanitizeHtml <link> extraction robustness (RS-22478 follow-up)', () => {
+  // A '>' inside a quoted attribute value must not truncate the tag: the quote-aware LINK_TAG
+  // captures the whole tag, so a valid FA link is kept and no tag remainder leaks as text.
+  test('keeps a link whose attribute value contains ">"', () => {
+    const out = sanitizeHtml('<link rel="stylesheet" title="a > b" href="https://use.fontawesome.com/x.css">')
+    expect(out).toContain('href="https://use.fontawesome.com/x.css"')
+    expect(out).not.toContain('href="https://use.fontawesome.com/x.css">"') // no leaked remainder
+    expect(out).not.toContain(' b"')
+  })
+
+  // A commented-out link must stay inert — the raw-text extractor must not revive it.
+  test('does not revive a commented-out link', () => {
+    const out = sanitizeHtml('<!-- <link rel="stylesheet" href="https://use.fontawesome.com/x.css"> --><p>hi</p>')
+    expect(out).not.toContain('<link')
+    expect(out).toContain('<p>hi</p>')
+  })
+
+  test('extracts only the live link when an allowlisted link is also present in a comment', () => {
+    const out = sanitizeHtml(
+      '<!-- <link rel="stylesheet" href="https://use.fontawesome.com/dead.css"> -->' +
+      '<link rel="stylesheet" href="https://use.fontawesome.com/live.css">')
+    expect(out).toContain('href="https://use.fontawesome.com/live.css"')
+    expect(out).not.toContain('dead.css')
+  })
+
+  // Fail closed: a parse failure inside extraction drops the one link, it never throws out of
+  // the replace callback and aborts sanitising the rest of the input.
+  test('a link that fails to parse is dropped, and surrounding content is still sanitised', () => {
+    const orig = document.createElement.bind(document)
+    const spy = jest.spyOn(document, 'createElement').mockImplementation((tag) => {
+      if (tag === 'template') throw new Error('no <template> support')
+      return orig(tag)
+    })
+    try {
+      const out = sanitizeHtml('<link rel="stylesheet" href="https://use.fontawesome.com/x.css"><script>alert(1)</script><p>ok</p>')
+      expect(out).not.toContain('<link') // link dropped (fail closed)
+      expect(out).not.toContain('<script') // rest of the input still sanitised, no throw
+      expect(out).toContain('<p>ok</p>')
+    } finally {
+      spy.mockRestore()
+    }
+  })
+})
