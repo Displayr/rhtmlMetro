@@ -194,3 +194,29 @@ describe('sanitizeHtml <link> allowlist rejects everything else (RS-22478 follow
     expect(out).toContain('href="https://use.fontawesome.com/x.css"')
   })
 })
+
+describe('sanitizeHtml preserves documented Box features (RS-22478 follow-up)', () => {
+  // Help centre 360004283115 — the KPI box (flex layout + <font> + <i> icon).
+  test('KPI flex-box example survives', () => {
+    const kpi = '<div style="height:100%;background:#61A1E9;display:flex">' +
+      '<div style="flex: 1 1 50%; color: white; display: flex; flex-direction: column; padding: 12pt">' +
+      '<div style="font-size: 32pt; font-weight: bold">45</div><div>Injuries per day</div></div>' +
+      '<div style="flex: 1 1 30%; display: flex; align-items: center;">' +
+      '<font color="red" style="font-size: 48pt"><i class="fas fa-ambulance"></i></font></div></div>'
+    const out = sanitizeHtml(kpi)
+    expect(out).toContain('display:flex')
+    expect(out).toContain('<font color="red"')
+    expect(out).toContain('<i class="fas fa-ambulance">')
+  })
+
+  // Help centre 360004368515 — linking images from an arbitrary public URL.
+  test('image-linking example survives (external <img> host + responsive <style>)', () => {
+    const img = '<style>\n.responsive {\nwidth: 100%;\nheight: auto;\n}\n</style>' +
+      '<img src="https://i.imgur.com/abc123.png" alt="Coca-Cola" class="responsive">'
+    const out = sanitizeHtml(img)
+    expect(out).toContain('<style>')
+    expect(out).toContain('.responsive')
+    expect(out).toContain('src="https://i.imgur.com/abc123.png"')
+    expect(out).toContain('alt="Coca-Cola"')
+  })
+})
