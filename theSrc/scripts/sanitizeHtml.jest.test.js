@@ -160,3 +160,37 @@ describe('sanitizeHtml Font Awesome <link> allowlist (RS-22478 follow-up)', () =
     expect(out).toContain('crossorigin="anonymous"')
   })
 })
+
+describe('sanitizeHtml <link> allowlist rejects everything else (RS-22478 follow-up)', () => {
+  test('drops a stylesheet link to a non-allowlisted host', () => {
+    expect(sanitizeHtml('<link rel="stylesheet" href="https://evil.example/x.css">')).not.toContain('<link')
+  })
+
+  test('drops a look-alike suffix host (exact match only)', () => {
+    expect(sanitizeHtml('<link rel="stylesheet" href="https://use.fontawesome.com.evil.com/x.css">')).not.toContain('<link')
+  })
+
+  test('drops non-stylesheet rels (e.g. preload)', () => {
+    expect(sanitizeHtml('<link rel="preload" href="https://use.fontawesome.com/x.css">')).not.toContain('<link')
+  })
+
+  test('drops http (non-https) links', () => {
+    expect(sanitizeHtml('<link rel="stylesheet" href="http://use.fontawesome.com/x.css">')).not.toContain('<link')
+  })
+
+  test('drops javascript: hrefs', () => {
+    expect(sanitizeHtml('<link rel="stylesheet" href="javascript:alert(1)">')).not.toContain('<link')
+  })
+
+  test('strips event-handler attributes from an otherwise-allowed link', () => {
+    const out = sanitizeHtml('<link rel="stylesheet" href="https://use.fontawesome.com/x" onload="alert(1)">')
+    expect(out).toContain('<link')
+    expect(out).not.toContain('onload')
+  })
+
+  test('normalises case and whitespace in rel and keeps the link', () => {
+    const out = sanitizeHtml('<LINK REL=" Stylesheet " HREF="https://use.fontawesome.com/x.css">')
+    expect(out).toContain('rel="stylesheet"')
+    expect(out).toContain('href="https://use.fontawesome.com/x.css"')
+  })
+})
