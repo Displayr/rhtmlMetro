@@ -143,3 +143,20 @@ describe('sanitizeHtml CSS scrub (RS-22478)', () => {
     expect(out).toContain('.a > .b')
   })
 })
+
+describe('sanitizeHtml Font Awesome <link> allowlist (RS-22478 follow-up)', () => {
+  const FA_LINK = '<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">'
+
+  test('keeps an https Font Awesome CDN stylesheet link', () => {
+    const out = sanitizeHtml(FA_LINK + '<i class="fas fa-arrow-down"></i>')
+    expect(out).toContain('rel="stylesheet"')
+    expect(out).toContain('href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"')
+    expect(out).toContain('<i class="fas fa-arrow-down">')
+  })
+
+  test('preserves the Subresource Integrity hash and crossorigin', () => {
+    const out = sanitizeHtml(FA_LINK)
+    expect(out).toContain('integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"')
+    expect(out).toContain('crossorigin="anonymous"')
+  })
+})

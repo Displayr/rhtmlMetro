@@ -30,6 +30,43 @@ DOMPurify.addHook('afterSanitizeAttributes', function (node) {
 
 const STYLE_BLOCK = /<style\b[^>]*>([\s\S]*?)<\/style>/gi
 
+// RS-22478 follow-up: DOMPurify strips <link>, which broke the documented Font Awesome CDN
+// pattern (help centre 360004283115 + "Adding Icons to Dashboards Using Font Awesome"). Like
+// <style> blocks, we pull <link> tags out before DOMPurify and re-insert only https stylesheet
+// links to an allowlisted host, rebuilt from scratch so no other attributes (e.g. onload) ride
+// along. External CSS is a higher-risk vector than <img> (attribute-selector exfiltration), so
+// the host list is deliberately narrow and exact-match.
+const STYLESHEET_HOST_ALLOWLIST = new Set(['use.fontawesome.com'])
+const LINK_TAG = /<link\b[^>]*>/gi
+
+function extractAllowedStylesheetLink (linkTagHtml) {
+  // Parse inertly: a detached <template>'s <link> does not load.
+  const template = document.createElement('template')
+  template.innerHTML = linkTagHtml
+  const link = template.content.querySelector('link')
+  if (!link) return null
+
+  if ((link.getAttribute('rel') || '').trim().toLowerCase() !== 'stylesheet') return null
+
+  let url
+  try {
+    url = new URL(link.getAttribute('href') || '')
+  } catch (e) {
+    return null
+  }
+  if (url.protocol !== 'https:') return null
+  if (!STYLESHEET_HOST_ALLOWLIST.has(url.hostname.toLowerCase())) return null
+
+  // Rebuild from scratch so only known-safe attributes survive (drops onload/onerror/etc.),
+  // and outerHTML escapes the values so a crafted href cannot break out of the tag.
+  const clean = document.createElement('link')
+  clean.setAttribute('rel', 'stylesheet')
+  clean.setAttribute('href', url.href)
+  if (link.hasAttribute('integrity')) clean.setAttribute('integrity', link.getAttribute('integrity'))
+  if (link.hasAttribute('crossorigin')) clean.setAttribute('crossorigin', link.getAttribute('crossorigin'))
+  return clean.outerHTML
+}
+
 // CSS lets any character be written as a backslash escape (e.g. \69 == "i", \@ == "@"), so a literal
 // match for @import etc. is bypassable via forms like @\69 mport. Decode escapes first so the scrubs
 // below see the canonical text. Note: decoding is global, so in rare cases it can change otherwise-
@@ -71,5 +108,14 @@ module.exports = function sanitizeHtml (text) {
     styles.push('<style>' + stripDangerousCss(css) + '</style>')
     return ''
   })
-  return styles.join('') + DOMPurify.sanitize(withoutStyles, SANITIZE_CONFIG)
+  // Extract <link> AFTER <style> so a <link> written as text inside CSS (e.g. content:'<link>')
+  // is not mistaken for a real tag. All <link> tags leave the DOMPurify stream; only approved
+  // ones are re-inserted.
+  const links = []
+  const withoutLinks = withoutStyles.replace(LINK_TAG, function (match) {
+    const clean = extractAllowedStylesheetLink(match)
+    if (clean) links.push(clean)
+    return ''
+  })
+  return links.join('') + styles.join('') + DOMPurify.sanitize(withoutLinks, SANITIZE_CONFIG)
 }
