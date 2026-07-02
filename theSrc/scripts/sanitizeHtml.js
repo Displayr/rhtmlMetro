@@ -37,34 +37,40 @@ const STYLE_BLOCK = /<style\b[^>]*>([\s\S]*?)<\/style>/gi
 // along. External CSS is a higher-risk vector than <img> (attribute-selector exfiltration), so
 // the host list is deliberately narrow and exact-match.
 const STYLESHEET_HOST_ALLOWLIST = new Set(['use.fontawesome.com'])
-const LINK_TAG = /<link\b[^>]*>/gi
+// The (?:[^>"']|"[^"]*"|'[^']*')* form matches a '>' only when it is OUTSIDE a quoted attribute
+// value, so a link with e.g. title="a > b" is captured whole instead of being truncated at the
+// first '>' (which would drop a valid link and leak the tag remainder as text).
+const LINK_TAG = /<link\b(?:[^>"']|"[^"]*"|'[^']*')*>/gi
+const HTML_COMMENT = /<!--[\s\S]*?-->/g
 
 function extractAllowedStylesheetLink (linkTagHtml) {
-  // Parse inertly: a detached <template>'s <link> does not load.
-  const template = document.createElement('template')
-  template.innerHTML = linkTagHtml
-  const link = template.content.querySelector('link')
-  if (!link) return null
-
-  if ((link.getAttribute('rel') || '').trim().toLowerCase() !== 'stylesheet') return null
-
-  let url
+  // Fail closed: any DOM/parse failure (e.g. a runtime without <template> support, or an
+  // unparseable href) must drop this one link, never throw out of the .replace() callback and
+  // take down sanitisation of the whole input.
   try {
-    url = new URL(link.getAttribute('href') || '')
+    // Parse inertly: a detached <template>'s <link> does not load.
+    const template = document.createElement('template')
+    template.innerHTML = linkTagHtml
+    const link = template.content.querySelector('link')
+    if (!link) return null
+
+    if ((link.getAttribute('rel') || '').trim().toLowerCase() !== 'stylesheet') return null
+
+    const url = new URL(link.getAttribute('href') || '')
+    if (url.protocol !== 'https:') return null
+    if (!STYLESHEET_HOST_ALLOWLIST.has(url.hostname.toLowerCase())) return null
+
+    // Rebuild from scratch so only known-safe attributes survive (drops onload/onerror/etc.),
+    // and outerHTML escapes the values so a crafted href cannot break out of the tag.
+    const clean = document.createElement('link')
+    clean.setAttribute('rel', 'stylesheet')
+    clean.setAttribute('href', url.href)
+    if (link.hasAttribute('integrity')) clean.setAttribute('integrity', link.getAttribute('integrity'))
+    if (link.hasAttribute('crossorigin')) clean.setAttribute('crossorigin', link.getAttribute('crossorigin'))
+    return clean.outerHTML
   } catch (e) {
     return null
   }
-  if (url.protocol !== 'https:') return null
-  if (!STYLESHEET_HOST_ALLOWLIST.has(url.hostname.toLowerCase())) return null
-
-  // Rebuild from scratch so only known-safe attributes survive (drops onload/onerror/etc.),
-  // and outerHTML escapes the values so a crafted href cannot break out of the tag.
-  const clean = document.createElement('link')
-  clean.setAttribute('rel', 'stylesheet')
-  clean.setAttribute('href', url.href)
-  if (link.hasAttribute('integrity')) clean.setAttribute('integrity', link.getAttribute('integrity'))
-  if (link.hasAttribute('crossorigin')) clean.setAttribute('crossorigin', link.getAttribute('crossorigin'))
-  return clean.outerHTML
 }
 
 // CSS lets any character be written as a backslash escape (e.g. \69 == "i", \@ == "@"), so a literal
@@ -108,11 +114,16 @@ module.exports = function sanitizeHtml (text) {
     styles.push('<style>' + stripDangerousCss(css) + '</style>')
     return ''
   })
-  // Extract <link> AFTER <style> so a <link> written as text inside CSS (e.g. content:'<link>')
-  // is not mistaken for a real tag. All <link> tags leave the DOMPurify stream; only approved
-  // ones are re-inserted.
+  // Strip HTML comments before extracting <link> so a commented-out (deliberately inert) link
+  // is not revived by the raw-text match below. Done AFTER <style> extraction so a legacy
+  // <style><!-- css --></style> block's CSS has already been pulled out and is untouched.
+  // Comments are inert content DOMPurify discards anyway, so removing them here is safe.
+  const withoutComments = withoutStyles.replace(HTML_COMMENT, '')
+  // Extract <link> AFTER <style>/comments so a <link> written as text inside CSS
+  // (e.g. content:'<link>') or inside a comment is not mistaken for a real tag. All <link>
+  // tags leave the DOMPurify stream; only approved ones are re-inserted.
   const links = []
-  const withoutLinks = withoutStyles.replace(LINK_TAG, function (match) {
+  const withoutLinks = withoutComments.replace(LINK_TAG, function (match) {
     const clean = extractAllowedStylesheetLink(match)
     if (clean) links.push(clean)
     return ''

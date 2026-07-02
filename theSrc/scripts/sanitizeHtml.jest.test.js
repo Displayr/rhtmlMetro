@@ -220,3 +220,48 @@ describe('sanitizeHtml preserves documented Box features (RS-22478 follow-up)', 
     expect(out).toContain('alt="Coca-Cola"')
   })
 })
+
+// PR #54 review (Kevin Huang): robustness of the raw-text <link> extraction.
+describe('sanitizeHtml <link> extraction robustness (RS-22478 follow-up)', () => {
+  // A '>' inside a quoted attribute value must not truncate the tag: the quote-aware LINK_TAG
+  // captures the whole tag, so a valid FA link is kept and no tag remainder leaks as text.
+  test('keeps a link whose attribute value contains ">"', () => {
+    const out = sanitizeHtml('<link rel="stylesheet" title="a > b" href="https://use.fontawesome.com/x.css">')
+    expect(out).toContain('href="https://use.fontawesome.com/x.css"')
+    expect(out).not.toContain('href="https://use.fontawesome.com/x.css">"') // no leaked remainder
+    expect(out).not.toContain(' b"')
+  })
+
+  // A commented-out link must stay inert — the raw-text extractor must not revive it.
+  test('does not revive a commented-out link', () => {
+    const out = sanitizeHtml('<!-- <link rel="stylesheet" href="https://use.fontawesome.com/x.css"> --><p>hi</p>')
+    expect(out).not.toContain('<link')
+    expect(out).toContain('<p>hi</p>')
+  })
+
+  test('extracts only the live link when an allowlisted link is also present in a comment', () => {
+    const out = sanitizeHtml(
+      '<!-- <link rel="stylesheet" href="https://use.fontawesome.com/dead.css"> -->' +
+      '<link rel="stylesheet" href="https://use.fontawesome.com/live.css">')
+    expect(out).toContain('href="https://use.fontawesome.com/live.css"')
+    expect(out).not.toContain('dead.css')
+  })
+
+  // Fail closed: a parse failure inside extraction drops the one link, it never throws out of
+  // the replace callback and aborts sanitising the rest of the input.
+  test('a link that fails to parse is dropped, and surrounding content is still sanitised', () => {
+    const orig = document.createElement.bind(document)
+    const spy = jest.spyOn(document, 'createElement').mockImplementation((tag) => {
+      if (tag === 'template') throw new Error('no <template> support')
+      return orig(tag)
+    })
+    try {
+      const out = sanitizeHtml('<link rel="stylesheet" href="https://use.fontawesome.com/x.css"><script>alert(1)</script><p>ok</p>')
+      expect(out).not.toContain('<link') // link dropped (fail closed)
+      expect(out).not.toContain('<script') // rest of the input still sanitised, no throw
+      expect(out).toContain('<p>ok</p>')
+    } finally {
+      spy.mockRestore()
+    }
+  })
+})
